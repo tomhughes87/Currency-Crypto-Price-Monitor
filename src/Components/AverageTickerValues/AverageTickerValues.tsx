@@ -3,6 +3,11 @@ import React, { useEffect, useState } from "react";
 // https://api.coinbase.com/v2/exchange-rates?currency=BTC
 
 export default function AverageTickerValues() {
+  const [counter, setCounter] = useState(0);
+  //   useEffect(() => {
+  //     setCounter(counter + 1);
+  //   }, []);
+
   ///////////////////////
   //   BitStamp-WS     //
   ///////////////////////
@@ -31,23 +36,18 @@ export default function AverageTickerValues() {
     };
   }, []);
 
-  ///////////////////////
-  //   CoinBase-WS     //
-  ///////////////////////
+  //   ///////////////////////
+  //   //   CoinBase-WS     //
+  //   ///////////////////////
   const [coinbasePriceWs, setCoinbasePriceWs] = useState("");
-  const [coinbasePlaceHolder, setCoinbasePlaceHolder] = useState([
-    "null",
-    "nil",
-    "nil",
-  ]);
 
   const ws = new WebSocket("wss://ws-feed.exchange.coinbase.com");
   useEffect(() => {
     const apiCall = {
       type: "subscribe",
-      product_ids: ["BTC-USD"],
+      //   product_ids: ["BTC-USD"],
       channels: [
-        "level2",
+        //     "level2",
         "heartbeat",
         {
           name: "ticker",
@@ -59,50 +59,100 @@ export default function AverageTickerValues() {
     ws.onopen = (event) => {
       ws.send(JSON.stringify(apiCall));
     };
+
     ws.onmessage = function (event) {
       const json = JSON.parse(event.data);
-      //   console.log(`[message] Data received from server: ${json}`);
-      //   console.table({ json });
-      // console.log(`[message] Data received from server: ${json.product_id}`);
-      //   console.log(`[message] Data received from server: ${json.changes}`);
 
       try {
-        if (json.changes === undefined) {
-        } else {
-          //   console.log(json.changes);
-          if (json.changes[0][0] === "buy") {
-            console.log(json.changes[0][0]);
-            setCoinbasePriceWs(json.changes[0][1]);
+        setCoinbasePriceWs(json.price);
+
+        // console.log(json.price);
+        // setTimeout(() => {
+        // }, );
+        // if (json.changes != undefined) {
+        //   if (json.changes[0][0] === "buy") {
+        //     // console.log(json.changes[0][0]);
+        //     setCoinbasePriceWs(json.changes[0][1]);
+        //   }
+        // }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    // return () => {
+    //     ws.disconnect();
+    //   }
+  }, []);
+
+  ///////////////////////
+  //   BitFinex-WS     //
+  ///////////////////////
+  const [bitfinexPriceWs, setbitfinexPriceWs] = useState(0);
+  const wsBitfinex = new WebSocket("wss://api-pub.bitfinex.com/ws/2");
+  //   const w = new ws("wss://api-pub.bitfinex.com/ws/2");
+
+  useEffect(() => {
+    const apiCall = {
+      event: "subscribe",
+      channel: "ticker",
+      symbol: "tBTCUSD",
+    };
+
+    wsBitfinex.onopen = (event) => {
+      wsBitfinex.send(JSON.stringify(apiCall));
+    };
+
+    wsBitfinex.onmessage = function (event) {
+      const json = JSON.parse(event.data);
+
+      try {
+        if (json[0] !== undefined) {
+          if (typeof json[1][0] == "number") {
+            console.log(json[1][0]);
+            setbitfinexPriceWs(json[1][0]);
           }
         }
-        // }
       } catch (err) {
         console.log(err);
       }
     };
   }, []);
 
+  ////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////
+
   return (
     <>
+      <h1>{counter}</h1>
+      <p>errs=0</p>
+
       <div>AverageTickerValues</div>
       <div>
         <h3>BitStamp:</h3>
-        <p>{bitstampPriceWs}</p>
+        {/* <p>${bitstampPriceWs}</p> */}
       </div>
       <div>
         <h3>CoinBase:</h3>
-        <p>{coinbasePriceWs.slice(0, -3)}</p>
+        <p>errs=1000000+</p>
+
+        <p>${coinbasePriceWs.slice(0, -3)}</p>
       </div>
       <div>
-        <h3>CoinBae:</h3>
-        <p>{coinbasePriceWs.slice(0, -3)}</p>
+        <h3>bitfinex:</h3>
+        <p>errs=0</p>
+        {/* <p>${bitfinexPriceWs}</p> */}
       </div>
       <div>
         <h3>Average Price:</h3>
         <p>
-          {Math.floor(
-            (Number(coinbasePriceWs.slice(0, -3)) + Number(bitstampPriceWs)) / 2
-          )}
+          $
+          {/* {Math.floor(
+            (Number(coinbasePriceWs.slice(0, -3)) +
+              Number(bitstampPriceWs) +
+              bitfinexPriceWs) /
+              3
+          )} */}
         </p>
       </div>
     </>
