@@ -127,7 +127,7 @@ export default function AverageTickerValues() {
         </div>
         <div>
           <h3>Average Price:</h3>
-          <img src={coinbaselogo} />
+          <img src={Coinbaselogo} />
           <p>${pricesAveraged}</p>
         </div>
       </div>
