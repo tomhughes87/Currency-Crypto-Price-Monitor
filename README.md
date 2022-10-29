@@ -53,3 +53,20 @@ AverageTickerValues:
   `AverageTickerValues.tsx:110 WebSocket connection to 'wss://api-pub.bitfinex.com/ws/2' failed: `
 
 * This doesn't stop the functionality of the component
+
+- CORS missing on BitStamp. Not sure what is happening. Sometimes there's no problems, other times there's no CORS.
+  tried:
+- - various headers (mode:no-cors/mode:cors/etc)
+- -
+
+### issues:
+
+websocket:
+
+- 3 websocket connects are established, each require research the sites documentation to understand the different channels, data structures, etc
+- using websocket channel that returned data every 0.05secs, like on coinbase, cause performance issues, especially if the data was being set to a state in a specific way with nest if states.
+  The fix: a websocket channel that sent every 5sec and only if changes had been made. Also changing from any changes to only 'Buy' changes so if statements could be removed
+
+- data type: Typescripts strict data types made handling the various responses from each websocket easier. (some gave 'string', other 'number' )
+
+- API fetch on BitStamp had a major CORS issue, the fix: try{} catch{}. If the fetch fails due to CORS issues, the catch waits (setTimeout()) for a few seconds before trying again. It could take up to four attempts or only one.
