@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
-
-// https://api.coinbase.com/v2/exchange-rates?currency=BTC
+import Coinbaselogo from "./coinbase_logo.svg";
+import "./styles.css";
 
 export default function AverageTickerValues() {
-  const [counter, setCounter] = useState(0);
-  //   useEffect(() => {
-  //     setCounter(counter + 1);
-  //   }, []);
+  const [priceBitstampeWs, setPriceBitstampWs] = useState(-1); //using -1 is to check if data is loaded (stock could never be -)
+  const [priceCoinbaseWs, setPriceCoinbaseWs] = useState<number>(-1);
+  const [bitfinexPriceWs, setbitfinexPriceWs] = useState(-1);
 
   ///////////////////////
   //   BitStamp-WS     //
   ///////////////////////
-  const [bitstampPriceWs, setBitstampPriceWs] = useState("");
   const wsBitstamp = new WebSocket("wss://ws.bitstamp.net");
   useEffect(() => {
     const apiCall = {
@@ -23,11 +21,10 @@ export default function AverageTickerValues() {
     };
     wsBitstamp.onmessage = function (event) {
       const json = JSON.parse(event.data);
-      console.log(`[message] Data received from server: ${json}`);
       try {
         if ((json.event = "data")) {
           if (json.data.price) {
-            setBitstampPriceWs(json.data.price);
+            setPriceBitstampWs(json.data.price);
           }
         }
       } catch (err) {
@@ -36,18 +33,10 @@ export default function AverageTickerValues() {
     };
   }, []);
 
-  //   ///////////////////////
-  //   //   CoinBase-WS     //
-  //   ///////////////////////
-  const [coinbasePriceWs, setCoinbasePriceWs] = useState(123456789);
-
-  //   const ws = new WebSocket("wss://ws-feed.prime.coinbase.com");
-
-  const ws = new WebSocket(
-    // GET wss://ws-feed.exchange.coinbase.com
-    // Sec-WebSocket-Extensions: permessage-deflate
-    "wss://ws-feed.exchange.coinbase.com"
-  );
+  ///////////////////////
+  //   CoinBase-WS     //
+  ///////////////////////
+  const ws = new WebSocket("wss://ws-feed.exchange.coinbase.com");
   useEffect(() => {
     console.log("doing thi");
 
@@ -58,58 +47,27 @@ export default function AverageTickerValues() {
       channels: ["ticker_batch"],
     };
 
-    //   type: "subscribe",
-    //   channel: "level2",
-    //   //   product_ids: ["BTC-USD"],
-    //   channels: [
-    //     // "level2",
-    //     "heartbeat",
-    //     {
-    //       name: "ticker",
-    //       product_ids: ["BTC-USD"],
-    //     },
-    //   ],
-    //   headers: "Sec-WebSocket-Extensions: permessage-deflate",
-    // };
-
     ws.onopen = (event) => {
       ws.send(JSON.stringify(apiCall));
     };
 
     ws.onmessage = function (event) {
       const json = JSON.parse(event.data);
-      console.log(json);
 
       try {
         if (typeof json.price === "string") {
-          setCoinbasePriceWs(json.price);
+          setPriceCoinbaseWs(Math.floor(Number(json.price))); //Change string > num. remove decimals
         }
-        // console.log(json);
-        // console.log(json.price);
-        // setTimeout(() => {
-        // }, );
-        // if (json.changes != undefined) {
-        //   if (json.changes[0][0] === "buy") {
-        //     // console.log(json.changes[0][0]);
-        //     setCoinbasePriceWs(json.changes[0][1]);
-        //   }
-        // }
       } catch (err) {
         console.log(err);
       }
     };
-    // return () => {
-    //     ws.disconnect();
-    //   }
   }, []);
 
   ///////////////////////
   //   BitFinex-WS     //
   ///////////////////////
-  const [bitfinexPriceWs, setbitfinexPriceWs] = useState(0);
   const wsBitfinex = new WebSocket("wss://api-pub.bitfinex.com/ws/2");
-  //   const w = new ws("wss://api-pub.bitfinex.com/ws/2");
-
   useEffect(() => {
     const apiCall = {
       event: "subscribe",
@@ -137,46 +95,59 @@ export default function AverageTickerValues() {
     };
   }, []);
 
-  ////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////////////
+  ////////////////////////
+  //   Call Find Avg    //
+  ////////////////////////
+  let pricesAveraged = FindAvg([
+    bitfinexPriceWs,
+    priceBitstampeWs,
+    priceCoinbaseWs,
+  ]); //Reason for 'let' in readme
 
-  // if (coinbasePriceWs !=)
-
-  //   if (coinbasePriceWs === "undifined") {
-  //   }
-
+  ///////////////////
+  //   RETURN     //
+  //////////////////
   return (
     <>
-      <div>AverageTickerValues</div>
-      <div>
-        <h3>BitStamp:</h3>
-        <p>${bitstampPriceWs}</p>
-      </div>
-      <div>
-        <h3>CoinBase:</h3>
+      <div id="MainContainer-AvgTickerVal">
+        <h1>Price of Bitcoin in USD:</h1>
+        <div>
+          <h3>BitStamp:</h3>
+          <p>${priceBitstampeWs}</p>
+        </div>
+        <div>
+          <h3>CoinBase:</h3>
 
-        {/* <p>${coinbasePriceWs(0, -3)}</p> */}
-        <p>${coinbasePriceWs}</p>
-        {/* <p>${coinbasePriceWs.toFixed()}</p> */}
-      </div>
-      <div>
-        <h3>bitfinex:</h3>
+          <p>${priceCoinbaseWs}</p>
+        </div>
+        <div>
+          <h3>bitfinex:</h3>
 
-        <p>${bitfinexPriceWs}</p>
-      </div>
-      <div>
-        <h3>Average Price:</h3>
-        <p>
-          $
-          {Math.floor(
-            (Number(coinbasePriceWs) +
-              Number(bitstampPriceWs) +
-              bitfinexPriceWs) /
-              3
-          )}
-        </p>
+          <p>${bitfinexPriceWs}</p>
+        </div>
+        <div>
+          <h3>Average Price:</h3>
+          <img src={coinbaselogo} />
+          <p>${pricesAveraged}</p>
+        </div>
       </div>
     </>
   );
+}
+
+//////////////////////
+//     SUB FUNCS   //
+////////////////////
+
+export function FindAvg(ArrOfNums: number[]) {
+  let avg: number = 0;
+  try {
+    for (let i = 0; i < ArrOfNums.length; i++) {
+      avg += ArrOfNums[i]; //add arr together
+    }
+    return Math.floor((avg /= ArrOfNums.length)); // divide the sum by the length, remove decimal points
+  } catch {
+    console.log("Error: Issue with FindAvg Func");
+    return 0;
+  }
 }
