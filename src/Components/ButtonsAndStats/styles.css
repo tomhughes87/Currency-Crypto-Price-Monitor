@@ -1,0 +1,63 @@
+
+#MainContainer-btns-stats-graph{
+    background-color: white;
+    padding: 15px;
+
+    width: 340px;
+    height: 85vh;
+}
+
+#Container-btns{
+    background-color: gray;
+    padding: 15px;
+
+    height: 90%;
+
+    border-radius: 15px;
+    overflow: scroll;
+}
+
+#Container-stats{
+ background-color: blue;
+ padding: 15px;
+}
+
+#Container-graph{
+    background-color: greenyellow;
+    padding: 15px;
+}
+
+
+/* //////////////////////////// */
+
+.btn{
+    margin: 3px;
+    width: 90px;
+    height: 40px;
+}
+
+/* ///////////////// */
+/*   CUSTOM SCROLL   */
+/* ///////////////// */
+
+/* width */
+::-webkit-scrollbar {
+    width: 15px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 0 rgb(255, 255, 255); 
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgb(85, 92, 109); 
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #0c1e44; 
+  }
