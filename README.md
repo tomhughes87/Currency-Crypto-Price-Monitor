@@ -132,3 +132,17 @@ https://jakearchibald.github.io/svgomg/
 - either: useEffects/ onChange/ firing a func from the websocket
 - then changing the dom p tag and adding a new class
   ^ all seems a bit much for little reward
+
+### fetch() err in useEffect (btn population)
+
+-trying to fetch from `https://www.bitstamp.net/api/v2/trading-pairs-info/`,
+
+- returns the data without any issues
+- BUT error:
+  ` Uncaught (in promise) TypeError: Failed to fetch`
+
+- tried: async/await: no difference
+- tried: adding to header (mode:cors, method:GET,etc): no difference
+- tried: checkingthe url (Http/https, etc): no difference
+- tried: a different url: it works err free with a different url "https://www.themealdb.com/api/json/v1/1/random.php"
+  Conclusion: must be a server side issue, need to investigate further
