@@ -4,6 +4,40 @@ export default function ButtonsAndStats() {
   const [btnDataArr, setBtnArrData] = useState([{ name: "", url_symbol: "" }]);
   const [loading, setLoading] = useState(true);
 
+  function search(e: any) {
+    const searchValue = e.target.value;
+    const btns = document.getElementsByClassName(
+      "btn"
+    ) as HTMLCollectionOf<HTMLElement>;
+
+    // //NO BTNS IF SEARCH INPUT = ""
+    // if (searchValue === "") {
+    //   console.log("nothing in search ");
+    //   for (let i = 0; i < btns.length; i++) {
+    //     btns[i].style.display = "none";
+    //   }
+    //   return;
+    // }
+
+    for (let i = 0; i < btns.length; i++) {
+      //////////////ONLY THE START
+      //   if (btns[i].innerHTML.startsWith(searchValue)) {
+      //     btns[i].style.display = "";
+      //   } else {
+      //     console.log("-");
+      //     btns[i].style.display = "none";
+      //   }}
+
+      //////////////MATCH ANYPART
+      if (btns[i].innerHTML.includes(searchValue)) {
+        btns[i].style.display = "";
+      } else {
+        btns[i].style.display = "none";
+        // console.log("-");
+      }
+    }
+  }
+
   //////////////////////////
   //      async  fetch    //
   //////////////////////////
@@ -37,7 +71,7 @@ export default function ButtonsAndStats() {
       {" "}
       <div id="btnContainer">
         {/* InterviewBtns */}
-        {/* <input id="searchInput" onKeyUp={search}></input> */}
+        <input id="searchInput" onKeyUp={search}></input>
         {btnDataArr.map((tricker) => (
           <button key={tricker.url_symbol} className="btn">
             {tricker.name}
