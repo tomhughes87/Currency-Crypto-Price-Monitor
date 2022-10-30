@@ -158,3 +158,5 @@ choice:
 
 - I went with the default, to show all btns, it was closer to the design and is less effort for user
 - startWith() felt more natural and much more useful to users
+  Alt:
+  -dropdown, this might work well too.
