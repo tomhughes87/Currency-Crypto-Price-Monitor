@@ -1,42 +1,10 @@
 import React, { useEffect, useState } from "react";
 
+/////////////////////////////////////////////////////////////////////////////
+
 export default function ButtonsAndStats() {
   const [btnDataArr, setBtnArrData] = useState([{ name: "", url_symbol: "" }]);
   const [loading, setLoading] = useState(true);
-
-  function search(e: any) {
-    const searchValue = e.target.value;
-    const btns = document.getElementsByClassName(
-      "btn"
-    ) as HTMLCollectionOf<HTMLElement>;
-
-    // //NO BTNS IF SEARCH INPUT = ""
-    // if (searchValue === "") {
-    //   console.log("nothing in search ");
-    //   for (let i = 0; i < btns.length; i++) {
-    //     btns[i].style.display = "none";
-    //   }
-    //   return;
-    // }
-
-    for (let i = 0; i < btns.length; i++) {
-      //////////////ONLY THE START
-      //   if (btns[i].innerHTML.startsWith(searchValue)) {
-      //     btns[i].style.display = "";
-      //   } else {
-      //     console.log("-");
-      //     btns[i].style.display = "none";
-      //   }}
-
-      //////////////MATCH ANYPART
-      if (btns[i].innerHTML.includes(searchValue)) {
-        btns[i].style.display = "";
-      } else {
-        btns[i].style.display = "none";
-        // console.log("-");
-      }
-    }
-  }
 
   //////////////////////////
   //      async  fetch    //
@@ -65,7 +33,10 @@ export default function ButtonsAndStats() {
     fetchApiFunc();
   }, []);
 
-  //   console.log(btnDataArr[0].url_symbol);
+  //////////////////////////
+  //        RETURN        //
+  //////////////////////////
+
   return (
     <>
       {" "}
@@ -83,3 +54,25 @@ export default function ButtonsAndStats() {
 }
 // key={tricker.url_symbol}
 // onClick={handleBtnClick}
+
+/////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////
+//    Search for btn    //
+//////////////////////////
+
+export function search(e: any) {
+  const searchValue = e.target.value.toUpperCase();
+  const btns = document.getElementsByClassName(
+    "btn"
+  ) as HTMLCollectionOf<HTMLElement>;
+
+  for (let i = 0; i < btns.length; i++) {
+    //MATCH ANYPART
+    if (btns[i].innerHTML.includes(searchValue)) {
+      btns[i].style.display = "";
+    } else {
+      btns[i].style.display = "none";
+    }
+  }
+}
