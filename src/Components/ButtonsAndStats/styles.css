@@ -1,0 +1,27 @@
+
+#MainContainer-btns-stats-graph{
+    background-color: white;
+    padding: 15px;
+}
+
+#Container-btns{
+    background-color: gray;
+    padding: 15px;
+}
+
+#Container-stats{
+ background-color: blue;
+ padding: 15px;
+}
+
+#Container-graph{
+    background-color: greenyellow;
+    padding: 15px;
+}
+
+
+/* //////////////////////////// */
+
+.btn{
+    margin: 3px;
+}

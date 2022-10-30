@@ -160,3 +160,14 @@ choice:
 - startWith() felt more natural and much more useful to users
   Alt:
   -dropdown, this might work well too.
+
+### Stats comp:
+
+- Problem: the api links vary in speed and quality. BTC/USD is slower and often has Cors issues resulting in a failed fetch (serval others out of the 175 tickers are the same)
+- Tried: using websocket instead to bypass CORS- changing websocket channels could be done I believe but it's not time efficent, also there are already several websockets running on the avgtickval component
+- Tried: Reaching a proxy server to host the api data and add cors to my proxy server- seems like a heavy handed approach
+- Temp solution:
+
+# trello board started to track tasks:
+
+- https://trello.com/invite/b/sqfWvc0x/ATTIb5311e38128b3f9aea49c9aa3f6f28286A8C30B3/currency-tracker

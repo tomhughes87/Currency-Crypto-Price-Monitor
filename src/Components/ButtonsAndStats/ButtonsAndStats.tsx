@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./styles.css";
 // import { Stats } from "./Stats/Stats";
 
 /////////////////////////////////////////////////////////////////////////////
@@ -9,7 +10,7 @@ export default function ButtonsAndStats() {
   const [clickedBtnValue, setClickedBtnValue] = useState("");
 
   //////////////////////////
-  //      async  fetch    //
+  //       fetch btns     //
   //////////////////////////
 
   useEffect(() => {
@@ -28,7 +29,6 @@ export default function ButtonsAndStats() {
       }
       console.log(res);
       const data = await res.json();
-      console.log("async trying:", data);
       setBtnArrData(data);
       return data;
     }
@@ -52,21 +52,54 @@ export default function ButtonsAndStats() {
 
   return (
     <>
-      {" "}
-      <div id="btnContainer">
-        {/* InterviewBtns */}
-        <input id="searchInput" onKeyUp={search}></input>
-        {btnDataArr.map((tricker) => (
-          <button
-            key={tricker.url_symbol}
-            className="btn"
-            onClick={handleBtnClick}
-          >
-            {tricker.name}
-          </button>
-        ))}
+      <div id="MainContainer-btns-stats-graph">
+        <input id="Input-search" onKeyUp={search}></input>
 
-        {/* <Stats /> */}
+        <div id="Container-btns">
+          {btnDataArr.map((tricker) => (
+            <button
+              key={tricker.url_symbol}
+              className="btn"
+              onClick={handleBtnClick}
+            >
+              {tricker.name}
+            </button>
+          ))}
+        </div>
+
+        <div id="Container-stats">
+          <h1>stats</h1>
+          <p>
+            from btn prop:
+            {/* {props.btnclicked} */}
+          </p>
+
+          <p>
+            Today opened at:
+            {/* {symbStart}
+            {apiStats.open} {symbEnd} */}
+          </p>
+
+          <p>
+            Today's High:
+            {/* {symbStart}
+            {apiStats.high} {symbEnd} */}
+          </p>
+
+          <p>
+            Today's Low:
+            {/* {symbStart}
+            {apiStats.low}
+            {symbEnd} */}
+          </p>
+
+          <p>
+            % change over 24hrs:
+            {/* {apiStats.percent_change_24}         {symbEnd} */}
+          </p>
+        </div>
+
+        <div id="Container-graph"></div>
       </div>
     </>
   );
