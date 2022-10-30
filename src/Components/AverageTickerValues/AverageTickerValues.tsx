@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
-import Coinbaselogo from "./coinbase_logo.svg";
+import logoCoinbase from "./coinbase_logo.svg";
+// import logoBitstamp from "./result.svg";
+import logoBitstamp from "./Bitstamp_logo.svg";
+import logoBitfinex from "./Bitfinex_logo.svg";
+// import logoBitstamp from "./bitstamp_logo.svg";
+
 import "./styles.css";
 
 export default function AverageTickerValues() {
   const [priceBitstampeWs, setPriceBitstampWs] = useState(-1); //using -1 is to check if data is loaded (stock could never be -)
   const [priceCoinbaseWs, setPriceCoinbaseWs] = useState<number>(-1);
-  const [bitfinexPriceWs, setbitfinexPriceWs] = useState(-1);
+  const [pricBitfinexeWs, setPricebitfinexWs] = useState(-1);
 
   ///////////////////////
   //   BitStamp-WS     //
@@ -86,7 +91,7 @@ export default function AverageTickerValues() {
         if (json[0] !== undefined) {
           if (typeof json[1][0] == "number") {
             console.log(json[1][0]);
-            setbitfinexPriceWs(json[1][0]);
+            setPricebitfinexWs(json[1][0]);
           }
         }
       } catch (err) {
@@ -99,36 +104,63 @@ export default function AverageTickerValues() {
   //   Call Find Avg    //
   ////////////////////////
   let pricesAveraged = FindAvg([
-    bitfinexPriceWs,
     priceBitstampeWs,
     priceCoinbaseWs,
+    pricBitfinexeWs,
   ]); //Reason for 'let' in readme
+
+  ////////////////////////
+  //   Listen for changes//
+  ////////////////////////
+  useEffect(() => {
+    console.log("priceBitstampeWs has updated");
+    const classes = document.getElementsByClassName("price-site-price");
+    console.log(classes);
+
+    for (let i = 0; i < classes.length; i++) {
+      classes[i].addEventListener("change", (event) =>
+        console.log("..................", event)
+      );
+    }
+    // classes.addEventListener("change", (event) => {
+    // console.log(event);
+    //   });
+  }, []);
 
   ///////////////////
   //   RETURN     //
   //////////////////
   return (
     <>
-      <div id="MainContainer-AvgTickerVal">
+      <div id="MainContainer-avgTickerVal">
+        <div id="Container-live" className="not-live-active-container">
+          <div id="live-dot" className="not-live-active-dot"></div>
+          <p>Live</p>
+        </div>
         <h1>Price of Bitcoin in USD:</h1>
-        <div>
-          <h3>BitStamp:</h3>
-          <p>${priceBitstampeWs}</p>
-        </div>
-        <div>
-          <h3>CoinBase:</h3>
-
-          <p>${priceCoinbaseWs}</p>
-        </div>
-        <div>
-          <h3>bitfinex:</h3>
-
-          <p>${bitfinexPriceWs}</p>
+        <div id="Container-site-price">
+          <div className="card-site-price">
+            <img id="logoBitstamp" className="logo" src={logoBitstamp} />
+            <p className="price-site-price">
+              ${priceBitstampeWs.toLocaleString()}
+            </p>
+          </div>
+          <div className="card-site-price">
+            <img id="logoCoinbase" className="logo" src={logoCoinbase} />
+            <p className="price-site-price" onMouseDown={hangleChangedPrice}>
+              ${priceCoinbaseWs.toLocaleString()}
+            </p>
+          </div>
+          <div className="card-site-price">
+            <img id="logoBitfinex" className="logo" src={logoBitfinex} />
+            <p className="price-site-price">
+              ${pricBitfinexeWs.toLocaleString()}
+            </p>
+          </div>
         </div>
         <div>
           <h3>Average Price:</h3>
-          <img src={Coinbaselogo} />
-          <p>${pricesAveraged}</p>
+          <p>${pricesAveraged.toLocaleString()}</p>
         </div>
       </div>
     </>
@@ -150,4 +182,9 @@ export function FindAvg(ArrOfNums: number[]) {
     console.log("Error: Issue with FindAvg Func");
     return 0;
   }
+}
+
+export function hangleChangedPrice(event: any) {
+  console.log("changed");
+  return 0;
 }
