@@ -146,3 +146,15 @@ https://jakearchibald.github.io/svgomg/
 - tried: checkingthe url (Http/https, etc): no difference
 - tried: a different url: it works err free with a different url "https://www.themealdb.com/api/json/v1/1/random.php"
   Conclusion: must be a server side issue, need to investigate further
+
+### search features:
+
+- start with (so typing "usd" would give "usd/btc" BUT NOT "btc/usd)
+- includes (so typing "usd" would give "usd/btc" AND "btc/usd)
+- default: all btns displayed, searching removes btns OR alternatively:
+- - if the input is empty then no btns displayed
+
+choice:
+
+- I went with the default, to show all btns, it was closer to the design and is less effort for user
+- startWith() felt more natural and much more useful to users
