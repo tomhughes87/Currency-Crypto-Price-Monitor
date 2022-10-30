@@ -116,15 +116,20 @@
   animation-name: textChange;
   /* animation-iteration-count: infinite; */
 
-
+  
 }
+
+.animate{
+  animation-duration: 2.3s;
+  animation-name: textChange;
+}
+
 @keyframes textChange{
   0%{
     color: black;
   }
   100%{
     color: rgb(242, 9, 9);
-
   }
 }
 

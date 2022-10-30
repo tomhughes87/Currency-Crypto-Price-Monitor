@@ -10,7 +10,7 @@ import "./styles.css";
 export default function AverageTickerValues() {
   const [priceBitstampeWs, setPriceBitstampWs] = useState(-1); //using -1 is to check if data is loaded (stock could never be -)
   const [priceCoinbaseWs, setPriceCoinbaseWs] = useState<number>(-1);
-  const [pricBitfinexeWs, setPricebitfinexWs] = useState(-1);
+  const [pricBitfinexeWs, setPriceBitfinexWs] = useState(-1);
 
   ///////////////////////
   //   BitStamp-WS     //
@@ -91,7 +91,7 @@ export default function AverageTickerValues() {
         if (json[0] !== undefined) {
           if (typeof json[1][0] == "number") {
             console.log(json[1][0]);
-            setPricebitfinexWs(json[1][0]);
+            setPriceBitfinexWs(json[1][0]);
           }
         }
       } catch (err) {
@@ -108,24 +108,6 @@ export default function AverageTickerValues() {
     priceCoinbaseWs,
     pricBitfinexeWs,
   ]); //Reason for 'let' in readme
-
-  ////////////////////////
-  //   Listen for changes//
-  ////////////////////////
-  useEffect(() => {
-    console.log("priceBitstampeWs has updated");
-    const classes = document.getElementsByClassName("price-site-price");
-    console.log(classes);
-
-    for (let i = 0; i < classes.length; i++) {
-      classes[i].addEventListener("change", (event) =>
-        console.log("..................", event)
-      );
-    }
-    // classes.addEventListener("change", (event) => {
-    // console.log(event);
-    //   });
-  }, []);
 
   ///////////////////
   //   RETURN     //
@@ -147,13 +129,13 @@ export default function AverageTickerValues() {
           </div>
           <div className="card-site-price">
             <img id="logoCoinbase" className="logo" src={logoCoinbase} />
-            <p className="price-site-price" onMouseDown={hangleChangedPrice}>
+            <p className="price-site-price">
               ${priceCoinbaseWs.toLocaleString()}
             </p>
           </div>
           <div className="card-site-price">
             <img id="logoBitfinex" className="logo" src={logoBitfinex} />
-            <p className="price-site-price">
+            <p id="txt-price-bitfinex" className="price-site-price">
               ${pricBitfinexeWs.toLocaleString()}
             </p>
           </div>
@@ -182,9 +164,4 @@ export function FindAvg(ArrOfNums: number[]) {
     console.log("Error: Issue with FindAvg Func");
     return 0;
   }
-}
-
-export function hangleChangedPrice(event: any) {
-  console.log("changed");
-  return 0;
 }

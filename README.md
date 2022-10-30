@@ -126,3 +126,9 @@ In the SVG file, try changing:
 
 https://jakearchibald.github.io/svgomg/
 ^using this site to reconfig the svg worked!
+
+### on values change, animate the style:
+
+- either: useEffects/ onChange/ firing a func from the websocket
+- then changing the dom p tag and adding a new class
+  ^ all seems a bit much for little reward
