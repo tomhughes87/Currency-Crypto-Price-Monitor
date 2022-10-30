@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+// import { Stats } from "./Stats/Stats";
 
 /////////////////////////////////////////////////////////////////////////////
 
 export default function ButtonsAndStats() {
   const [btnDataArr, setBtnArrData] = useState([{ name: "", url_symbol: "" }]);
   const [loading, setLoading] = useState(true);
+  const [clickedBtnValue, setClickedBtnValue] = useState("");
 
   //////////////////////////
   //      async  fetch    //
@@ -34,6 +36,17 @@ export default function ButtonsAndStats() {
   }, []);
 
   //////////////////////////
+  //   Handle btn click   //
+  //////////////////////////
+
+  function handleBtnClick(e: any) {
+    e.preventDefault();
+    console.log("btn clicked", e.target);
+    setClickedBtnValue(e.target.innerHTML);
+    // return Stats();
+  }
+
+  //////////////////////////
   //        RETURN        //
   //////////////////////////
 
@@ -44,16 +57,20 @@ export default function ButtonsAndStats() {
         {/* InterviewBtns */}
         <input id="searchInput" onKeyUp={search}></input>
         {btnDataArr.map((tricker) => (
-          <button key={tricker.url_symbol} className="btn">
+          <button
+            key={tricker.url_symbol}
+            className="btn"
+            onClick={handleBtnClick}
+          >
             {tricker.name}
           </button>
         ))}
+
+        {/* <Stats /> */}
       </div>
     </>
   );
 }
-// key={tricker.url_symbol}
-// onClick={handleBtnClick}
 
 /////////////////////////////////////////////////////////////////////////////
 
