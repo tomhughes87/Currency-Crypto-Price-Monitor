@@ -168,6 +168,30 @@ choice:
 - Tried: Reaching a proxy server to host the api data and add cors to my proxy server- seems like a heavy handed approach
 - Temp solution:
 
+### a very rare chance of failing to fetch btn api
+
+- solution: try{} catch{setTimeout(), fetchAgain()}
+
 # trello board started to track tasks:
 
 - https://trello.com/invite/b/sqfWvc0x/ATTIb5311e38128b3f9aea49c9aa3f6f28286A8C30B3/currency-tracker
+
+## setting stat via func
+
+in the stats comp i needed to set the currency symbol so I made a func with a switch statement.
+
+- problem: calling setState(func()) wasnt working,
+- solution: just use 'let sym = func()'
+
+### API data for STATS:
+
+// "open": "20771",
+// "high": "21012",
+// "low": "20361",
+// "last": "20697",
+// "volume": "2109.00715844",
+// "vwap": "20729",
+// "bid": "20694",
+// "ask": "20697",
+// "open_24": "20710",
+// "percent_change_24": "-0.06",
