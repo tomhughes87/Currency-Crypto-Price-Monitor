@@ -1,8 +1,12 @@
 #MainContainer-avgTickerVal {
-  background-color: yellowgreen;
+  background-color: #05595B;
 /* width: 40%; */
   border-radius: 15px;
   padding: 10px;
+}
+
+h1{
+  color: #f0eddb;
 }
 
 #logoBitstamp{
@@ -111,9 +115,10 @@
 }
 
 #Container-site-price{
-  background-color: violet;
+  /* background-color: violet; */
   display: flex;
   justify-content: space-around;
+
 }
 
 .card-site-price{
@@ -125,20 +130,27 @@
   align-items: center;
   flex-direction: column;
   justify-content: center;
+  overflow: hidden;
+
 }
 
 /* .card-site-price p{ */
   .price-site-price{
-  /* color: rgb(57, 57, 57); */
+  color: rgb(255, 255, 255);
+  background-color: rgb(61, 54, 54);
+  height: 65px;
   font-family: sans-serif;
   font-weight: 600;
-  position: absolute;
+  position: inherit;
   letter-spacing: 3px;
-  margin-top: 80px;
+  margin-top: 109px;
   font-size: large;
   transition: ease-in;
   animation-duration: 2.3s;
   animation-name: textChange;
+  width: 200px;
+  text-align: center;
+  line-height: 65px;
   /* animation-iteration-count: infinite; */
 
   
@@ -162,5 +174,5 @@
 
 .logo{
   position: absolute;
-  margin-top: -20px;
+  margin-top: -34px;
 }
