@@ -5,7 +5,7 @@ import ButtonsAndStats from "../Components/ButtonsAndStats/ButtonsAndStats";
 export default function PageAbout() {
   return (
     <>
-      <h1>PageAbout</h1>;
+      {/* <h1>PageAbout</h1>; */}
       <ButtonsAndStats />
       {/* <Stats /> */}
     </>
