@@ -1,58 +1,51 @@
 import React, { useEffect, useState } from "react";
 
 export default function ButtonsAndStats() {
-  const [btnDataArr, setBtnArrData] = useState([{ name: "" }]);
+  const [btnDataArr, setBtnArrData] = useState([{ name: "", url_symbol: "" }]);
   const [loading, setLoading] = useState(true);
-
-  //////////////////////////
-  //      Normal fetch    //
-  //////////////////////////
-
-  //   useEffect(() => {
-  //     console.log("Here");
-  //     try {
-  //       fetch("https://www.bitstamp.net/api/v2/trading-pairs-info/")
-  //         .then((res) => res.json())
-  //         .then((data) => {
-  //           console.log(data);
-  //           setBtnArrData(data);
-  //           setLoading(false);
-  //         });
-  //     } catch {
-  //       console.log("errors");
-  //     }
-  //   }, []);
 
   //////////////////////////
   //      async  fetch    //
   //////////////////////////
 
   useEffect(() => {
-    // debugger;
     async function fetchApiFunc() {
       let res = await fetch(
         `https://www.bitstamp.net/api/v2/trading-pairs-info/`,
-        // "https://www.themealdb.com/api/json/v1/1/random.php",
         {
           method: "GET",
-          //   mode: "cors",
           headers: {
             accept: "application/json",
           },
         }
       );
-
       if (!res.ok) {
         throw new Error(`Error! status: ${res.status}`);
       }
-
       console.log(res);
       const data = await res.json();
       console.log("async trying:", data);
+      setBtnArrData(data);
       return data;
     }
     fetchApiFunc();
-  }, []); //
+  }, []);
 
-  return <div>Buttons And Stats</div>;
+  //   console.log(btnDataArr[0].url_symbol);
+  return (
+    <>
+      {" "}
+      <div id="btnContainer">
+        {/* InterviewBtns */}
+        {/* <input id="searchInput" onKeyUp={search}></input> */}
+        {btnDataArr.map((tricker) => (
+          <button key={tricker.url_symbol} className="btn">
+            {tricker.name}
+          </button>
+        ))}
+      </div>
+    </>
+  );
 }
+// key={tricker.url_symbol}
+// onClick={handleBtnClick}
