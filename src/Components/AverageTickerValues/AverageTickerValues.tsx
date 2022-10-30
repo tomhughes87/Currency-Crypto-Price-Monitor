@@ -115,8 +115,8 @@ export default function AverageTickerValues() {
   return (
     <>
       <div id="MainContainer-avgTickerVal">
-        <div id="Container-live" className="not-live-active-container">
-          <div id="live-dot" className="not-live-active-dot"></div>
+        <div id="Container-live" className="live-active-container">
+          <div id="live-dot" className="live-active-dot"></div>
           <p>Live</p>
         </div>
         <h1>Price of Bitcoin in USD:</h1>
