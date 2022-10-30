@@ -112,3 +112,17 @@ export default content;
 Add the custom.d.ts to tsconfig.json as below
 
 "include": ["src/components", "src/custom.d.ts"]
+
+### svg errors:
+
+`` SyntaxError: unknown file: Namespace tags are not supported by default. React's JSX doesn't support namespace tags. You can set `throwIfNamespace: false` to bypass this warning. ``
+
+In the SVG file, try changing:
+
+`sketchType TO sketchType`
+`xmlnsXlink TO xmlnsXlink`
+`xlinkHref TO xlinkHref`
+^this didnt work
+
+https://jakearchibald.github.io/svgomg/
+^using this site to reconfig the svg worked!
