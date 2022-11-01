@@ -9,6 +9,7 @@ import search from "./utils/searchBtn";
 
 export default function ButtonsAndStats() {
   const [btnDataArr, setBtnArrData] = useState([{ name: "", url_symbol: "" }]);
+  const [loadBtns, setLoadBtns] = useState(false);
   const [loading, setLoading] = useState(true);
   const [clickedBtnValue, setClickedBtnValue] = useState("");
   const [apiStats, setApiStats] = useState({
@@ -29,7 +30,8 @@ export default function ButtonsAndStats() {
   //////////////////////////
 
   useEffect(() => {
-    async function fetchApiFunc() {
+    async function fetchBtnApiFunc() {
+      console.log("CALLLLLLLLLL");
       let res = await fetch(
         `https://www.bitstamp.net/api/v2/trading-pairs-info/`,
         {
@@ -45,9 +47,16 @@ export default function ButtonsAndStats() {
       console.log(res);
       const data = await res.json();
       setBtnArrData(data);
+      setLoadBtns(true);
       return data;
     }
-    fetchApiFunc();
+    if (loadBtns === false) {
+      console.log("btns not loaded yet");
+      fetchBtnApiFunc();
+    } else {
+      console.log("btns loaded already");
+      return;
+    }
   }, []);
 
   //////////////////////////
@@ -70,13 +79,20 @@ export default function ButtonsAndStats() {
   useEffect(() => {
     setApiStats({ open: "-", high: "-", low: "-", percent_change_24: "-" }); //on btn click, clear the prev stats whilst loading new stats
     async function fetchApiFunc() {
+      console.log("starting fetch");
       try {
-        let res = await fetch(
+        let resStats = await fetch(
           `https://www.bitstamp.net/api/v2/ticker/${UrlFromBtn}`
         );
-        const data = await res.json();
-        setApiStats(data);
-        SetcurrencySymbols(GetCurrenySymbol(clickedBtnValue));
+        const dataStats = await resStats.json();
+        console.log("this", dataStats);
+        if (dataStats) {
+          setApiStats(dataStats);
+          SetcurrencySymbols(GetCurrenySymbol(clickedBtnValue));
+          console.log("got data and set");
+        }
+        console.log("fetch again in 10sec");
+        setTimeout(fetchApiFunc, 20000); // refetch after x seconds
       } catch {
         const SecondsBeforeRetry = 2;
         // <LoadingIssues />;
@@ -85,7 +101,7 @@ export default function ButtonsAndStats() {
           SecondsBeforeRetry,
           "seconds before retrying"
         );
-        setTimeout(fetchApiFunc, SecondsBeforeRetry * 1000); // if failed: wait and try again (some endpoints fail often)
+        // setTimeout(fetchApiFunc, SecondsBeforeRetry * 1000); // if failed: wait and try again (some endpoints fail often)
       }
     }
     fetchApiFunc();

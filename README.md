@@ -222,3 +222,16 @@ Error: <g> attribute transform: Expected ')', "…855130267768e-14translate(, ),
 // "ask": "20697",
 // "open_24": "20710",
 // "percent_change_24": "-0.06",
+
+### strange and inconsistant api fetches
+
+- problem: when trying to add the 'fetch after Xsecs' feature i noticed that it would sometimes display the new starts
+- tried: console.log the response, it was inconsistent. sometimes it was the btn api/ other times it was the stats(which would then display)
+- var 'data', 'res', and even the func name are all the same in each useEffect(fetch) within the same component creating many issues
+- tried rename fetchFunc(), data, res. didnt work
+- i noticed a pattern in the calls:
+- - btns/ currency/ stats/ btns/ currency/ stats
+- tried: and if statement to not run buttons fetch if already done.. no affect
+- Clicking multiple btns results in new fetchs. after the time limit ALL the fetches previously done will very quickly cycle on themselves,
+  it seems the fetch loop doesnt end when the use clicks another thing
+  - Try, one single fetch and ... maybe not
