@@ -249,3 +249,10 @@ Error: <g> attribute transform: Expected ')', "…855130267768e-14translate(, ),
 
 - issue, click btn and triggering fetch, the usestate that handled the url was set to the btn picked PREVIOUSLY than the one the user had just pressed.
 - solution, chaining setstates eg:setname(e.taget.innerHTML), seturl(name) because seturl(e.taget.innerHTML)... it was more complex,
+
+### improving ux on retriving stats after btn press
+
+- problem: when clicking a btn the user currently has to wait the interval time until the data is set,
+- tried: trying to call and func when the useEffect is started and then also within the setinterval-
+  this will mean i can fetch the data on click without waiting for the setinterval time
+  if it works i'll see hi on click and then after every interval too

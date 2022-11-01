@@ -3,9 +3,6 @@ import "./styles.css";
 
 import GetCurrenySymbol from "./utils/getCurrencySymbols";
 import search from "./utils/searchBtn";
-// import { Stats } from "./Stats/Stats";
-
-/////////////////////////////////////////////////////////////////////////////
 
 export default function ButtonsAndStats() {
   const [btnDataArr, setBtnArrData] = useState([{ name: "", url_symbol: "" }]);
@@ -25,44 +22,9 @@ export default function ButtonsAndStats() {
     frontSymbol: "",
     endSymbol: "",
   });
-  // const [loadingToggle, setLoadingToggle] = useState(true);
 
   //////////////////////////
-  //       fetch btns Async    //
-  //////////////////////////
-
-  // useEffect(() => {
-  //   async function fetchBtnApiFunc() {
-  //     console.log("CALLLLLLLLLL");
-  //     let res = await fetch(
-  //       `https://www.bitstamp.net/api/v2/trading-pairs-info/`,
-  //       {
-  //         method: "GET",
-  //         headers: {
-  //           accept: "application/json",
-  //         },
-  //       }
-  //     );
-  //     if (!res.ok) {
-  //       throw new Error(`Error! status: ${res.status}`);
-  //     }
-  //     console.log(res);
-  //     const data = await res.json();
-  //     setBtnArrData(data);
-  //     setLoadBtns(true);
-  //     return data;
-  //   }
-  //   if (loadBtns === false) {
-  //     console.log("btns not loaded yet");
-  //     fetchBtnApiFunc();
-  //   } else {
-  //     console.log("btns loaded already");
-  //     return;
-  //   }
-  // }, []);
-
-  //////////////////////////
-  //       fetch btns normal    //
+  //      fetch btns      //
   //////////////////////////
 
   useEffect(() => {
@@ -92,15 +54,16 @@ export default function ButtonsAndStats() {
     setMiniBtnContainer("min-btn-container"); //shrink the btns container
     return;
   }
-  ///////////
 
   //////////////////////////
   //     Fetch Stats      //
   //////////////////////////
 
   useEffect(() => {
+    expimenting();
     let interval = setInterval(async () => {
       try {
+        expimenting();
         const res = await fetch(
           `https://www.bitstamp.net/api/v2/ticker/${UrlFromBtn}`
         );
@@ -126,6 +89,17 @@ export default function ButtonsAndStats() {
 
   function searchHighlighted() {
     setMiniBtnContainer(""); //remove shrink the btns container
+  }
+  //////////////////////////
+  //        expimenting   //
+  //////////////////////////
+  /*trying to call and func when the useEffect is started and then also within the setinterval- 
+  this will mean i can fetch the data on click without waiting for the setinterval time
+  if it works i'll see hi on click and then after every interval too
+  */
+  function expimenting() {
+    console.log("hi");
+    return;
   }
 
   //////////////////////////
