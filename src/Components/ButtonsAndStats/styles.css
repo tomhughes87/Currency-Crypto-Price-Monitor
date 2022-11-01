@@ -15,10 +15,13 @@
 
     border-radius: 15px;
     overflow: scroll;
+
+    transition: 1s;
+  animation: ease-out;
 }
 
 #Container-stats{
- background-color: blue;
+ background-color: rgb(143, 143, 210);
  padding: 15px;
 }
 
@@ -60,4 +63,8 @@
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
     background: #0c1e44; 
+  }
+
+  .min-btn-container{
+    height: 14% !important;
   }

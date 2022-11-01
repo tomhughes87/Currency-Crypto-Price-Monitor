@@ -2,48 +2,83 @@
 //  Currency Symbols    //
 //////////////////////////
 
-export default function GetCurrenySymbol(ticker: any): string[] {
+export default function GetCurrenySymbol(ticker: any): any {
   ticker = ticker.split("/"); // eg: get btc/usd > ["btc","usd"]
+  // debugger;
 
-  let symStart = ""; // some currency have symbols at the start: $99
-  let symEnd = ""; //some, many crypto, have their names at the end
+  // let symStart = ""; // some currency have symbols at the start: $99
+  // let symEnd = ""; //some, many crypto, have their names at the end
 
   switch (ticker[1]) {
     case "GBP":
-      symStart = "£";
-      break;
+      return {
+        frontSymbol: "£",
+        endSymbol: "",
+      };
+    // break;
 
     case "USD":
-      symStart = "$";
-      break;
+      return {
+        frontSymbol: "$",
+        endSymbol: "",
+      };
+    // symStart = "$";
+    // break;
 
     case "EUR":
-      symStart = "€";
-      break;
+      return {
+        frontSymbol: "€",
+        endSymbol: "",
+      };
+    //   symStart = "€";
+    //   break;
 
     case "PAX":
-      symEnd = "Pax (Cryto)";
-      break;
+      return {
+        frontSymbol: "",
+        endSymbol: " Pax (Cryto)",
+      };
+    //   symEnd = "Pax (Cryto)";
+    //   break;
 
     case "BTC":
-      symEnd = "Bitcoin (Cryto)";
-      break;
+      return {
+        frontSymbol: "",
+        endSymbol: " Bitcoin (Cryto)",
+      };
+    //   symEnd = "Bitcoin (Cryto)";
+    //   break;
 
     case "USDC":
-      symEnd = "USD coin (Cryto)";
-      break;
+      return {
+        frontSymbol: "",
+        endSymbol: " USD coin (Cryto)",
+      };
+    //   symEnd = "USD coin (Cryto)";
+    //   break;
 
     case "ETH":
-      symEnd = "Ether (Cryto)";
-      break;
+      return {
+        frontSymbol: "",
+        endSymbol: " Ether (Cryto)",
+      };
+    //   symEnd = "Ether (Cryto)";
+    //   break;
 
     case "USDT":
-      symEnd = "Tether (Cryto)";
-      break;
+      return {
+        frontSymbol: "",
+        endSymbol: " Tether (Cryto)",
+      };
+    //   symEnd = "Tether (Cryto)";
+    //   break;
 
     default:
-      break;
+      return {
+        frontSymbol: "",
+        endSymbol: "",
+      };
   }
 
-  return [symStart, symEnd];
+  // return [symStart, symEnd];
 }

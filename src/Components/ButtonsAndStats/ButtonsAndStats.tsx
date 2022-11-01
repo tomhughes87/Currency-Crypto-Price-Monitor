@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./styles.css";
+
 import GetCurrenySymbol from "./utils/getCurrencySymbols";
 import search from "./utils/searchBtn";
 // import { Stats } from "./Stats/Stats";
@@ -17,6 +18,11 @@ export default function ButtonsAndStats() {
     percent_change_24: "-",
   });
   const [UrlFromBtn, setUrlFromBtn] = useState("-");
+  const [miniBtnContainer, setMiniBtnContainer] = useState("");
+  const [currencySymbols, SetcurrencySymbols] = useState({
+    frontSymbol: "",
+    endSymbol: "",
+  });
 
   //////////////////////////
   //       fetch btns     //
@@ -51,13 +57,14 @@ export default function ButtonsAndStats() {
   function handleBtnClick(e: any) {
     e.preventDefault();
     console.log("btn clicked", e.target);
-    setClickedBtnValue(e.target.innerHTML);
+    setMiniBtnContainer("min-btn-container"); //shrink the btns container
+    setClickedBtnValue(e.target.innerHTML); //add title to stats container
     setUrlFromBtn(clickedBtnValue.toLowerCase().replace("/", ""));
     return;
   }
 
   //////////////////////////
-  //     Fetch stats      //
+  //     Fetch Stats      //
   //////////////////////////
   // ASYNC, fetch stats, looping on errors. many CORS issues with this url
   useEffect(() => {
@@ -69,15 +76,24 @@ export default function ButtonsAndStats() {
         );
         const data = await res.json();
         setApiStats(data);
-        return data;
+        SetcurrencySymbols(GetCurrenySymbol(clickedBtnValue));
       } catch {
         const SecondsBeforeRetry = 2;
         // <LoadingIssues />;
+        console.log(
+          "Fetch Failed, waiting",
+          SecondsBeforeRetry,
+          "seconds before retrying"
+        );
         setTimeout(fetchApiFunc, SecondsBeforeRetry * 1000); // if failed: wait and try again (some endpoints fail often)
       }
     }
     fetchApiFunc();
   }, [UrlFromBtn]); // on receiveing url "" from btn click
+
+  function searchHighlighted() {
+    setMiniBtnContainer(""); //remove shrink the btns container
+  }
 
   //////////////////////////
   //        RETURN        //
@@ -87,11 +103,15 @@ export default function ButtonsAndStats() {
       <div id="MainContainer-btns-stats-graph">
         {/* /////////////////////////////// */}
         {/* //           Search          // */}
-        <input id="Input-search" onKeyUp={search}></input>
+        <input
+          id="Input-search"
+          onKeyUp={search}
+          onFocus={searchHighlighted}
+        ></input>
 
         {/* /////////////////////////////// */}
         {/* //        Btn section        // */}
-        <div id="Container-btns">
+        <div id="Container-btns" className={miniBtnContainer}>
           {btnDataArr.map((tricker) => (
             <button
               key={tricker.url_symbol}
@@ -109,32 +129,33 @@ export default function ButtonsAndStats() {
           <h1>stats</h1>
           <p>
             from btn prop:
-            {/* {props.btnclicked} */}
+            {clickedBtnValue}
           </p>
 
           <p>
             Today opened at:
-            {/* {symbStart} */}
+            {currencySymbols.frontSymbol}
             {apiStats.open}
-            {/* {symbEnd} */}
+            {currencySymbols.endSymbol}
           </p>
 
           <p>
             Today's High:
-            {/* {symbStart}
-            {apiStats.high} {symbEnd} */}
+            {currencySymbols.frontSymbol}
+            {apiStats.high}
+            {currencySymbols.endSymbol}
           </p>
 
           <p>
             Today's Low:
-            {/* {symbStart}
+            {currencySymbols.frontSymbol}
             {apiStats.low}
-            {symbEnd} */}
+            {currencySymbols.endSymbol}
           </p>
 
           <p>
-            % change over 24hrs:
-            {/* {apiStats.percent_change_24}         {symbEnd} */}
+            Change over 24hrs:
+            {apiStats.percent_change_24}%
           </p>
         </div>
 
@@ -143,10 +164,6 @@ export default function ButtonsAndStats() {
     </>
   );
 }
-
-/////////////////////////////////////////////////////////////////////////////
-
-// export function Stats(props: any) {
 
 /////////////////////////////////////////////////////////////////////////////
 
