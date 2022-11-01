@@ -242,3 +242,5 @@ Error: <g> attribute transform: Expected ')', "…855130267768e-14translate(, ),
 #### still have the issue of the cycling of fetch funcs, even after another btn is clicked
 
 - cancelling the func on click might be the solution...
+- using the setinterval with a cancel return works, settimeout didn't
+- helped: https://rapidapi.com/guides/api-requests-intervals
