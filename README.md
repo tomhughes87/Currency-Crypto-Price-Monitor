@@ -176,12 +176,39 @@ choice:
 
 - https://trello.com/invite/b/sqfWvc0x/ATTIb5311e38128b3f9aea49c9aa3f6f28286A8C30B3/currency-tracker
 
-## setting stat via func
+## graphs and trying to setting stat via func
 
 in the stats comp i needed to set the currency symbol so I made a func with a switch statement.
 
 - problem: calling setState(func()) wasnt working,
 - solution: just use 'let sym = func()'
+
+trying to get the chart to update:
+
+- added button to add to data.
+- added a <p> displaying a data.length() counter to ensure its working and updated in dom
+
+tried- using a let var and then passing it as the param when calling the graph func, then update the let var on btn click
+result- the let doesnt update in the rendered dom. useState is needed
+
+tried- using useState and then passing it as the param when calling the graph func, then setUsestate on btn click
+-result, setState(arr.push()) doesn't work,
+
+--Main problem:
+
+- setState of the stored data within a nested func won't update the parent component with the graph
+- having a state outside of it to monitor
+
+FIX: useeffect and add to the setData within there (or call a func to do it)
+
+## BUG on graph update
+
+note: still functioning but points are strange
+The forum: https://github.com/pmndrs/react-spring/issues/1078
+
+```react-spring-web.esm.js:68 Error:
+Error: <g> attribute transform: Expected ')', "…855130267768e-14translate(, ), 6…".
+```
 
 ### API data for STATS:
 
