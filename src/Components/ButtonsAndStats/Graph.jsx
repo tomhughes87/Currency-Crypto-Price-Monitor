@@ -1,7 +1,7 @@
 import React, { useEffect, useState }from "react";
 import { ResponsiveLine } from "@nivo/line";
 // import { graphData } from "./graphData";
-// import './graph.css'
+import './graph.css'
 
 export default function Graph() {    
 
