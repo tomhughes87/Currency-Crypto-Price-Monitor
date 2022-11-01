@@ -244,3 +244,8 @@ Error: <g> attribute transform: Expected ')', "…855130267768e-14translate(, ),
 - cancelling the func on click might be the solution...
 - using the setinterval with a cancel return works, settimeout didn't
 - helped: https://rapidapi.com/guides/api-requests-intervals
+
+#### clicking on a btn and setting state,
+
+- issue, click btn and triggering fetch, the usestate that handled the url was set to the btn picked PREVIOUSLY than the one the user had just pressed.
+- solution, chaining setstates eg:setname(e.taget.innerHTML), seturl(name) because seturl(e.taget.innerHTML)... it was more complex,

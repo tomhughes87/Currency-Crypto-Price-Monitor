@@ -86,12 +86,20 @@ export default function ButtonsAndStats() {
 
   function handleBtnClick(e: any) {
     e.preventDefault();
+
+    setUrlFromBtn(e.target.innerHTML.toLowerCase().replace("/", "")); //updated
+
     console.log("btn clicked", e.target);
-    setMiniBtnContainer("min-btn-container"); //shrink the btns container
     setClickedBtnValue(e.target.innerHTML); //add title to stats container
-    setUrlFromBtn(clickedBtnValue.toLowerCase().replace("/", ""));
+    // setUrlFromBtn(clickedBtnValue.toLowerCase().replace("/", "")); //original
+    setLoading(!loading);
+    setMiniBtnContainer("min-btn-container"); //shrink the btns container
+
     return;
   }
+  ///////////
+
+  // //////////////////////
 
   function passCurrentBtnPress({ oldUrl }: any) {
     console.log(`Most recently pressed: ${UrlFromBtn}`);
@@ -126,7 +134,7 @@ export default function ButtonsAndStats() {
       // time of interval
     }, 5000);
     return () => clearInterval(interval);
-  }, [UrlFromBtn]); // on receiveing url "" from btn click
+  }, [loading]); // on receiveing url "" from btn click
 
   function searchHighlighted() {
     setMiniBtnContainer(""); //remove shrink the btns container
