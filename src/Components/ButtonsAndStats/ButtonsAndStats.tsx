@@ -56,32 +56,21 @@ export default function ButtonsAndStats() {
   }
 
   //////////////////////////
-  //     Fetch Stats      //
+  //  Timer>Fetch Stats   //
   //////////////////////////
 
   useEffect(() => {
-    expimenting();
+    fetchStats();
     let interval = setInterval(async () => {
-      expimenting();
-
-      // time of interval
-    }, 5000);
+      fetchStats();
+    }, 10000); // time of interval (10secs)
     return () => clearInterval(interval);
   }, [UrlFromBtn]); // on receiveing url "" from btn click
 
-  function searchHighlighted() {
-    setMiniBtnContainer(""); //remove shrink the btns container
-  }
   //////////////////////////
-  //        expimenting   //
+  //     Fetch Stats      //
   //////////////////////////
-  /*trying to call and func when the useEffect is started and then also within the setinterval- 
-  this will mean i can fetch the data on click without waiting for the setinterval time
-  if it works i'll see hi on click and then after every interval too
-  */
-  //  IT WORKS!
-  // NEXT: Try the fetch() in this func
-  async function expimenting() {
+  async function fetchStats() {
     console.log("hi");
 
     try {
@@ -110,6 +99,14 @@ export default function ButtonsAndStats() {
   //////////////////////////
   //        RETURN        //
   //////////////////////////
+
+  function handleSearchInputFocus() {
+    setMiniBtnContainer(""); //remove shrink the btns container
+  }
+
+  //////////////////////////
+  //        RETURN        //
+  //////////////////////////
   return (
     <>
       <div id="MainContainer-btns-stats-graph">
@@ -118,7 +115,7 @@ export default function ButtonsAndStats() {
         <input
           id="Input-search"
           onKeyUp={search}
-          onFocus={searchHighlighted}
+          onFocus={handleSearchInputFocus}
         ></input>
 
         {/* /////////////////////////////// */}
