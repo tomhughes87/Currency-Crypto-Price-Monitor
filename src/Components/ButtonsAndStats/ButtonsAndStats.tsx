@@ -26,37 +26,56 @@ export default function ButtonsAndStats() {
   });
 
   //////////////////////////
-  //       fetch btns     //
+  //       fetch btns Async    //
+  //////////////////////////
+
+  // useEffect(() => {
+  //   async function fetchBtnApiFunc() {
+  //     console.log("CALLLLLLLLLL");
+  //     let res = await fetch(
+  //       `https://www.bitstamp.net/api/v2/trading-pairs-info/`,
+  //       {
+  //         method: "GET",
+  //         headers: {
+  //           accept: "application/json",
+  //         },
+  //       }
+  //     );
+  //     if (!res.ok) {
+  //       throw new Error(`Error! status: ${res.status}`);
+  //     }
+  //     console.log(res);
+  //     const data = await res.json();
+  //     setBtnArrData(data);
+  //     setLoadBtns(true);
+  //     return data;
+  //   }
+  //   if (loadBtns === false) {
+  //     console.log("btns not loaded yet");
+  //     fetchBtnApiFunc();
+  //   } else {
+  //     console.log("btns loaded already");
+  //     return;
+  //   }
+  // }, []);
+
+  //////////////////////////
+  //       fetch btns normal    //
   //////////////////////////
 
   useEffect(() => {
-    async function fetchBtnApiFunc() {
-      console.log("CALLLLLLLLLL");
-      let res = await fetch(
-        `https://www.bitstamp.net/api/v2/trading-pairs-info/`,
-        {
-          method: "GET",
-          headers: {
-            accept: "application/json",
-          },
-        }
-      );
-      if (!res.ok) {
-        throw new Error(`Error! status: ${res.status}`);
-      }
-      console.log(res);
-      const data = await res.json();
-      setBtnArrData(data);
-      setLoadBtns(true);
-      return data;
-    }
-    if (loadBtns === false) {
-      console.log("btns not loaded yet");
-      fetchBtnApiFunc();
-    } else {
-      console.log("btns loaded already");
-      return;
-    }
+    const abortController = new AbortController();
+    // https://wanago.io/2022/04/11/abort-controller-race-conditions-react/
+    // https://medium.com/@icjoseph/using-react-to-understand-abort-controllers-eb10654485df // <this will help
+
+    fetch(`https://www.bitstamp.net/api/v2/trading-pairs-info/`)
+      .then((res) => res.json())
+      .then((data) => {
+        setBtnArrData(data);
+        setLoadBtns(true);
+        // return data;
+        return () => abortController.abort();
+      });
   }, []);
 
   //////////////////////////
