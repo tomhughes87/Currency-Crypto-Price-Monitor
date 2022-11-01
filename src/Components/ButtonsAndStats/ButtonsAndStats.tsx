@@ -102,85 +102,30 @@ export default function ButtonsAndStats() {
   //     Fetch Stats      //
   //////////////////////////
 
-  // ASYNC, fetch stats, looping on errors. many CORS issues with this url
   useEffect(() => {
-    // https://rapidapi.com/guides/api-requests-intervals
-    // setApiStats({ open: "-", high: "-", low: "-", percent_change_24: "-" }); //on btn click, clear the prev stats whilst loading new stats
-
-    // if (UrlFromBtn === "") {
-    //   return;
-    // }
-
-    // setLoadingToggle(!loadingToggle);
-    // let x = false;
-
     let interval = setInterval(async () => {
-      console.log("hi");
+      try {
+        const res = await fetch(
+          `https://www.bitstamp.net/api/v2/ticker/${UrlFromBtn}`
+        );
+        const dataStats = await res.json();
 
-      const res = await fetch(
-        `https://www.bitstamp.net/api/v2/ticker/${UrlFromBtn}`
-      );
-      console.log("res status", res);
+        // Do things with data
+        setApiStats(dataStats);
+        SetcurrencySymbols(GetCurrenySymbol(clickedBtnValue));
 
-      // fetch(`https://www.bitstamp.net/api/v2/ticker/${UrlFromBtn}`)
-      //   .then((res) => res.json())
-      //   .then((data) => {
-      //     setApiStats(data);
-      //     SetcurrencySymbols(GetCurrenySymbol(clickedBtnValue));
-      //   });
+        // Log the data & response
+        console.log("res status", res);
+        console.log("Data", dataStats);
 
-      // // async function fetchApiFunc() {
-      // // passCurrentBtnPress("{UrlFromBtn}");
-      // // console.log("starting fetch");
-      // // if (checkUrlOutOfBlock()={UrlFromBtn}){
-      // // if (x === false) {
-      // // console.log(` cancel ${UrlFromBtn} fetch func tiggered`);
-      // // return;
-      // // } else {
-      // // console.log({ UrlFromBtn });
-      // try {
-      //   let resStats =  fetch(
-      //     `https://www.bitstamp.net/api/v2/ticker/${UrlFromBtn}`
-      //   );
-      //   // console.log("res status", resStats);
-
-      //   const dataStats =  resStats.json();
-      //   // console.log("this", dataStats);
-      //   if (dataStats) {
-      //     setApiStats(dataStats);
-      //     SetcurrencySymbols(GetCurrenySymbol(clickedBtnValue));
-      //     // console.log("got data and set");
-      //     return;
-      //   }
-      //   console.log("fetch again in 10sec");
-      //   // setTimeout(fetchApiFunc, 20000); // refetch after x seconds
-      // } catch {
-      //   const SecondsBeforeRetry = 2;
-      //   console.log(`Fetch Failed, ${SecondsBeforeRetry} secs until retry`);
-      //   // setTimeout(fetchApiFunc, SecondsBeforeRetry * 1000); // if failed: wait and try again (some endpoints fail often)
-      // }
-      // }
-      // }
-
-      // fetchApiFunc();
-    }, 7000);
+        // handle error
+      } catch (error: unknown) {
+        console.log(error);
+        console.log("caught an error!");
+      }
+      // time of interval
+    }, 5000);
     return () => clearInterval(interval);
-
-    // while (loadingToggle) {
-
-    // if (loadingToggle){
-    // console.log({ loadingToggle });
-    // for (let i = 0; i < 10; i++) {
-    // setTimeout(fetchApiFunc, 10000); // refetch after x seconds
-    // }
-
-    // }
-    // }
-    // setTimeout(fetchApiFunc, 10000); // refetch after x seconds
-    // setTimeout(fetchApiFunc, 10000); // refetch after x seconds
-    // setTimeout(fetchApiFunc, 1000); // refetch after x seconds
-
-    // }
   }, [UrlFromBtn]); // on receiveing url "" from btn click
 
   function searchHighlighted() {
