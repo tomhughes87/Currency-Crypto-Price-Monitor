@@ -18,50 +18,6 @@ const [data,setData] = useState( [
           x: "plane",
           y: 58,
         },
-        {
-          x: "helicopter",
-          y: 48,
-        },
-        {
-          x: "boat",
-          y: 268,
-        },
-        {
-          x: "train",
-          y: 142,
-        },
-        {
-          x: "subway",
-          y: 217,
-        },
-        {
-          x: "bus",
-          y: 61,
-        },
-        {
-          x: "car",
-          y: 247,
-        },
-        {
-          x: "moto",
-          y: 55,
-        },
-        {
-          x: "bicycle",
-          y: 90,
-        },
-        {
-          x: "horse",
-          y: 209,
-        },
-        {
-          x: "skateboard",
-          y: 29,
-        },
-        {
-          x: "others",
-          y: 294,
-        },
       ],
     }
   ])

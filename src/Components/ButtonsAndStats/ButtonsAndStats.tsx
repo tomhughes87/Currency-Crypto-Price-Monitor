@@ -24,6 +24,32 @@ export default function ButtonsAndStats() {
     endSymbol: "",
   });
 
+  ///////////////////////////////////
+  //      starting graphData      //
+  //////////////////////////////////
+
+  const [graphData, setGraphData] = useState([
+    {
+      id: "China",
+      color: "hsl(135, 70%, 50%)",
+      data: [
+        {
+          x: 1,
+          y: 58,
+        },
+      ],
+    },
+  ]);
+
+  ///////////////////////////////////
+  //      add to   graphData      //
+  //////////////////////////////////
+  function addToGraphcData(fecthedData: any) {
+    let newGraphData = graphData;
+    newGraphData[0].data.push({ x: 2, y: fecthedData.last });
+    console.log("newGraphData", newGraphData);
+  }
+
   //////////////////////////
   //      fetch btns      //
   //////////////////////////
@@ -72,8 +98,6 @@ export default function ButtonsAndStats() {
   //     Fetch Stats      //
   //////////////////////////
   async function fetchStats() {
-    console.log("hi");
-
     try {
       const res = await fetch(
         `https://www.bitstamp.net/api/v2/ticker/${UrlFromBtn}`
@@ -83,6 +107,10 @@ export default function ButtonsAndStats() {
       // Do things with data
       setApiStats(dataStats);
       SetcurrencySymbols(GetCurrenySymbol(clickedBtnValue));
+      /////////////////////////////////////////////////////////////////////////////////  DATA FOR GRAPH
+      console.log(graphData); /////////////////////////////////////////////////////////   practicing
+      addToGraphcData(dataStats); /////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////////////////////////
 
       // Log the data & response
       console.log("res status", res);
