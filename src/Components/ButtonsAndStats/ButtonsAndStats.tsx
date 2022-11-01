@@ -13,6 +13,7 @@ export default function ButtonsAndStats() {
   const [loading, setLoading] = useState(true);
   const [clickedBtnValue, setClickedBtnValue] = useState("");
   const [apiStats, setApiStats] = useState({
+    last: "-",
     open: "-",
     high: "-",
     low: "-",
@@ -100,8 +101,10 @@ export default function ButtonsAndStats() {
   //////////////////////////
   //     Fetch Stats      //
   //////////////////////////
+
   // ASYNC, fetch stats, looping on errors. many CORS issues with this url
   useEffect(() => {
+    // https://rapidapi.com/guides/api-requests-intervals
     // setApiStats({ open: "-", high: "-", low: "-", percent_change_24: "-" }); //on btn click, clear the prev stats whilst loading new stats
 
     // if (UrlFromBtn === "") {
@@ -109,41 +112,59 @@ export default function ButtonsAndStats() {
     // }
 
     // setLoadingToggle(!loadingToggle);
-    let x = false;
+    // let x = false;
 
-    async function fetchApiFunc() {
-      passCurrentBtnPress("{UrlFromBtn}");
-      console.log("starting fetch");
-      // if (checkUrlOutOfBlock()={UrlFromBtn}){
-      // if (x === false) {
-      // console.log(` cancel ${UrlFromBtn} fetch func tiggered`);
-      // return;
-      // } else {
-      console.log({ UrlFromBtn });
-      try {
-        let resStats = await fetch(
-          `https://www.bitstamp.net/api/v2/ticker/${UrlFromBtn}`
-        );
-        // console.log("res status", resStats);
+    let interval = setInterval(async () => {
+      console.log("hi");
 
-        const dataStats = await resStats.json();
-        // console.log("this", dataStats);
-        if (dataStats) {
-          setApiStats(dataStats);
-          SetcurrencySymbols(GetCurrenySymbol(clickedBtnValue));
-          // console.log("got data and set");
-          return;
-        }
-        console.log("fetch again in 10sec");
-        // setTimeout(fetchApiFunc, 20000); // refetch after x seconds
-      } catch {
-        const SecondsBeforeRetry = 2;
-        console.log(`Fetch Failed, ${SecondsBeforeRetry} secs until retry`);
-        // setTimeout(fetchApiFunc, SecondsBeforeRetry * 1000); // if failed: wait and try again (some endpoints fail often)
-      }
+      const res = await fetch(
+        `https://www.bitstamp.net/api/v2/ticker/${UrlFromBtn}`
+      );
+      console.log("res status", res);
+
+      // fetch(`https://www.bitstamp.net/api/v2/ticker/${UrlFromBtn}`)
+      //   .then((res) => res.json())
+      //   .then((data) => {
+      //     setApiStats(data);
+      //     SetcurrencySymbols(GetCurrenySymbol(clickedBtnValue));
+      //   });
+
+      // // async function fetchApiFunc() {
+      // // passCurrentBtnPress("{UrlFromBtn}");
+      // // console.log("starting fetch");
+      // // if (checkUrlOutOfBlock()={UrlFromBtn}){
+      // // if (x === false) {
+      // // console.log(` cancel ${UrlFromBtn} fetch func tiggered`);
+      // // return;
+      // // } else {
+      // // console.log({ UrlFromBtn });
+      // try {
+      //   let resStats =  fetch(
+      //     `https://www.bitstamp.net/api/v2/ticker/${UrlFromBtn}`
+      //   );
+      //   // console.log("res status", resStats);
+
+      //   const dataStats =  resStats.json();
+      //   // console.log("this", dataStats);
+      //   if (dataStats) {
+      //     setApiStats(dataStats);
+      //     SetcurrencySymbols(GetCurrenySymbol(clickedBtnValue));
+      //     // console.log("got data and set");
+      //     return;
+      //   }
+      //   console.log("fetch again in 10sec");
+      //   // setTimeout(fetchApiFunc, 20000); // refetch after x seconds
+      // } catch {
+      //   const SecondsBeforeRetry = 2;
+      //   console.log(`Fetch Failed, ${SecondsBeforeRetry} secs until retry`);
+      //   // setTimeout(fetchApiFunc, SecondsBeforeRetry * 1000); // if failed: wait and try again (some endpoints fail often)
       // }
-    }
-    fetchApiFunc();
+      // }
+      // }
+
+      // fetchApiFunc();
+    }, 7000);
+    return () => clearInterval(interval);
 
     // while (loadingToggle) {
 
@@ -201,6 +222,13 @@ export default function ButtonsAndStats() {
           <p>
             from btn prop:
             {clickedBtnValue}
+          </p>
+
+          <p>
+            Last price:
+            {currencySymbols.frontSymbol}
+            {apiStats.last}
+            {currencySymbols.endSymbol}
           </p>
 
           <p>
