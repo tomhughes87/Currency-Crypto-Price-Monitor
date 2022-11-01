@@ -62,26 +62,8 @@ export default function ButtonsAndStats() {
   useEffect(() => {
     expimenting();
     let interval = setInterval(async () => {
-      try {
-        expimenting();
-        const res = await fetch(
-          `https://www.bitstamp.net/api/v2/ticker/${UrlFromBtn}`
-        );
-        const dataStats = await res.json();
+      expimenting();
 
-        // Do things with data
-        setApiStats(dataStats);
-        SetcurrencySymbols(GetCurrenySymbol(clickedBtnValue));
-
-        // Log the data & response
-        console.log("res status", res);
-        console.log("Data", dataStats);
-
-        // handle error
-      } catch (error: unknown) {
-        console.log(error);
-        console.log("caught an error!");
-      }
       // time of interval
     }, 5000);
     return () => clearInterval(interval);
@@ -97,8 +79,31 @@ export default function ButtonsAndStats() {
   this will mean i can fetch the data on click without waiting for the setinterval time
   if it works i'll see hi on click and then after every interval too
   */
-  function expimenting() {
+  //  IT WORKS!
+  // NEXT: Try the fetch() in this func
+  async function expimenting() {
     console.log("hi");
+
+    try {
+      const res = await fetch(
+        `https://www.bitstamp.net/api/v2/ticker/${UrlFromBtn}`
+      );
+      const dataStats = await res.json();
+
+      // Do things with data
+      setApiStats(dataStats);
+      SetcurrencySymbols(GetCurrenySymbol(clickedBtnValue));
+
+      // Log the data & response
+      console.log("res status", res);
+      console.log("Data", dataStats);
+
+      // handle error
+    } catch (error: unknown) {
+      console.log(error);
+      console.log("caught an error!");
+    }
+
     return;
   }
 

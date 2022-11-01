@@ -256,3 +256,4 @@ Error: <g> attribute transform: Expected ')', "…855130267768e-14translate(, ),
 - tried: trying to call and func when the useEffect is started and then also within the setinterval-
   this will mean i can fetch the data on click without waiting for the setinterval time
   if it works i'll see hi on click and then after every interval too
+- Sucess: UX sped up, calling the fetch as a func from with the useffect() setinterval
