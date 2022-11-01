@@ -234,4 +234,11 @@ Error: <g> attribute transform: Expected ')', "…855130267768e-14translate(, ),
 - tried: and if statement to not run buttons fetch if already done.. no affect
 - Clicking multiple btns results in new fetchs. after the time limit ALL the fetches previously done will very quickly cycle on themselves,
   it seems the fetch loop doesnt end when the use clicks another thing
+
   - Try, one single fetch and ... maybe not
+
+- if the fetch on a btn click has an empty uri endpoint (controlled by usestate), it returned the btns. thats the way the api is structured. this led to confusion about why a seperate fetch was runningon click... it wasn't it just seemed to be
+
+#### still have the issue of the cycling of fetch funcs, even after another btn is clicked
+
+- cancelling the func on click might be the solution...
