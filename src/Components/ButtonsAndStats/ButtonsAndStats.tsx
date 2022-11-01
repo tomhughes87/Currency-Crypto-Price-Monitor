@@ -18,7 +18,7 @@ export default function ButtonsAndStats() {
     low: "-",
     percent_change_24: "-",
   });
-  const [UrlFromBtn, setUrlFromBtn] = useState("-");
+  const [UrlFromBtn, setUrlFromBtn] = useState("xrpusd");
   const [miniBtnContainer, setMiniBtnContainer] = useState("");
   const [currencySymbols, SetcurrencySymbols] = useState({
     frontSymbol: "",
@@ -96,13 +96,19 @@ export default function ButtonsAndStats() {
   //////////////////////////
   // ASYNC, fetch stats, looping on errors. many CORS issues with this url
   useEffect(() => {
-    setApiStats({ open: "-", high: "-", low: "-", percent_change_24: "-" }); //on btn click, clear the prev stats whilst loading new stats
+    // setApiStats({ open: "-", high: "-", low: "-", percent_change_24: "-" }); //on btn click, clear the prev stats whilst loading new stats
+    if (UrlFromBtn === "") {
+      return;
+    }
+
     async function fetchApiFunc() {
       console.log("starting fetch");
       try {
         let resStats = await fetch(
           `https://www.bitstamp.net/api/v2/ticker/${UrlFromBtn}`
         );
+        console.log("res status", resStats);
+
         const dataStats = await resStats.json();
         console.log("this", dataStats);
         if (dataStats) {
