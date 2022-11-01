@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Graph from "./Graph";
 import "./styles.css";
 
 import GetCurrenySymbol from "./utils/getCurrencySymbols";
@@ -175,7 +176,9 @@ export default function ButtonsAndStats() {
           </p>
         </div>
 
-        <div id="Container-graph"></div>
+        <div id="Container-graph">
+          <Graph />
+        </div>
       </div>
     </>
   );

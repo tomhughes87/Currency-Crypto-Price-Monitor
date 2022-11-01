@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PageMain from "./Pages/PageMain";
-import PageAbout from "./Pages/PageAbout";
+import PageButtonsStats from "./Pages/PageButtonsStats";
 import PageContact from "./Pages/PageContact";
 import Page404 from "./Pages/Page404";
 
@@ -14,7 +14,7 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<PageMain />} />
-        <Route path="/about" element={<PageAbout />} />
+        <Route path="/buttonsandstats" element={<PageButtonsStats />} />
         <Route path="/contact" element={<PageContact />} />
         <Route path="*" element={<Page404 />} />
       </Routes>
