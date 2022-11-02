@@ -1,3 +1,5 @@
+# Not a generic react readme, please scroll down
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -294,3 +296,24 @@ Error: <g> attribute transform: Expected ')', "…855130267768e-14translate(, ),
 
 - each time you add to the data, add to the width
 - wrap it in a div with overlap:scroll and a fixed width
+
+### favicon/ bitcoin svg:
+
+- https://commons.wikimedia.org/wiki/File:Bitcoin_logo.svg#/media/File:Bitcoin.svg
+- editing the colors to match web style
+
+# Endpoint
+
+- `/` Main page
+- `/buttonsandstats` Page with isolated buttons/ stats/ graph component on it
+- `/avgticval` Page with isolated average ticker value component on it
+- `pages not found error` handled with a 404 page
+
+### problem with websocket not fetching data
+
+- websocket stopped fetching data
+- tried: compared the broken branch to a functioning branch (staging > production)
+- tried:git checkout timestamp to walk through issues and at which point it broke
+- Fix: a different browser- maybe stored files are at the limit, need to investigate further
+
+### altering coinbase logo colour to fit in
