@@ -268,3 +268,12 @@ Error: <g> attribute transform: Expected ')', "…855130267768e-14translate(, ),
 - as time goes on, the values on the furthest left disappear
 - unable to scroll as it an svg
 - format text/ legend
+
+- with such a small graph the numbers, espeically things like btc, can easy over crowd it and make it unreadable. going for a minimalistic approach
+
+### Branches:
+
+- production: deployed on netlify
+- main: ready for REVIEW, most complete
+- staging:
+- extra:
