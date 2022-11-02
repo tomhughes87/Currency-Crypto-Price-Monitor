@@ -5,6 +5,8 @@
 
     width: 340px;
     height: 85vh;
+
+    overflow: hidden;
 }
 
 #Container-btns{

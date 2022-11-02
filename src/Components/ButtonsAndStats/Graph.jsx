@@ -11,7 +11,7 @@ export default function Graph({passedData}) {
 const MyResponsiveLine = ({ passedData }) => (
     <ResponsiveLine
         data={passedData}
-        margin={{ top: 0, right: 10, bottom: 50, left: 40 }}
+        margin={{ top: 0, right: 10, bottom: 50, left: 10 }}
         xScale={{ type: 'point' }}
         yScale={{
             type: 'linear',
@@ -28,23 +28,25 @@ const MyResponsiveLine = ({ passedData }) => (
             tickSize: 5,
             tickPadding: 5,
             tickRotation: -60,
-            // legend: 'transportation',
-            legendOffset: 36,
+            legend: 'Seconds',
+            legendOffset: 46,
             legendPosition: 'middle'
         }}
-        axisLeft={{
-            orient: 'left',
-            tickSize: 5,
-            tickPadding: 15,
-            tickRotation: -90,
-            // legend: 'count',
-            legendOffset: -40,
-            legendPosition: 'middle'
-        }}
+        axisLeft={null}
+        // axisLeft={{
+        //     // orient: 'left',
+        //     // tickSize: 5,
+        //     // tickPadding: 15,
+        //     // tickRotation: -40,
+        //     // legend: 'count',
+        //     // legendOffset: 80,
+        //     // legendPosition: 'middle'
+        // }}
         colors={{ scheme: 'purple_orange' }}
         pointSize={10}
         pointColor={{ theme: 'background' }}
         pointBorderWidth={2}
+        // enablePointLabel={true}
         pointBorderColor={{ from: 'serieColor' }}
         pointLabelYOffset={-12}
         useMesh={true}
