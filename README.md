@@ -294,3 +294,8 @@ Error: <g> attribute transform: Expected ')', "…855130267768e-14translate(, ),
 
 - each time you add to the data, add to the width
 - wrap it in a div with overlap:scroll and a fixed width
+
+### favicon/ bitcoin svg:
+
+- https://commons.wikimedia.org/wiki/File:Bitcoin_logo.svg#/media/File:Bitcoin.svg
+- editing the colors to match web style
