@@ -176,12 +176,39 @@ choice:
 
 - https://trello.com/invite/b/sqfWvc0x/ATTIb5311e38128b3f9aea49c9aa3f6f28286A8C30B3/currency-tracker
 
-## setting stat via func
+## graphs and trying to setting stat via func
 
 in the stats comp i needed to set the currency symbol so I made a func with a switch statement.
 
 - problem: calling setState(func()) wasnt working,
 - solution: just use 'let sym = func()'
+
+trying to get the chart to update:
+
+- added button to add to data.
+- added a <p> displaying a data.length() counter to ensure its working and updated in dom
+
+tried- using a let var and then passing it as the param when calling the graph func, then update the let var on btn click
+result- the let doesnt update in the rendered dom. useState is needed
+
+tried- using useState and then passing it as the param when calling the graph func, then setUsestate on btn click
+-result, setState(arr.push()) doesn't work,
+
+--Main problem:
+
+- setState of the stored data within a nested func won't update the parent component with the graph
+- having a state outside of it to monitor
+
+FIX: useeffect and add to the setData within there (or call a func to do it)
+
+## BUG on graph update
+
+note: still functioning but points are strange
+The forum: https://github.com/pmndrs/react-spring/issues/1078
+
+```react-spring-web.esm.js:68 Error:
+Error: <g> attribute transform: Expected ')', "…855130267768e-14translate(, ), 6…".
+```
 
 ### API data for STATS:
 
@@ -195,3 +222,64 @@ in the stats comp i needed to set the currency symbol so I made a func with a sw
 // "ask": "20697",
 // "open_24": "20710",
 // "percent_change_24": "-0.06",
+
+### strange and inconsistant api fetches
+
+- problem: when trying to add the 'fetch after Xsecs' feature i noticed that it would sometimes display the new starts
+- tried: console.log the response, it was inconsistent. sometimes it was the btn api/ other times it was the stats(which would then display)
+- var 'data', 'res', and even the func name are all the same in each useEffect(fetch) within the same component creating many issues
+- tried rename fetchFunc(), data, res. didnt work
+- i noticed a pattern in the calls:
+- - btns/ currency/ stats/ btns/ currency/ stats
+- tried: and if statement to not run buttons fetch if already done.. no affect
+- Clicking multiple btns results in new fetchs. after the time limit ALL the fetches previously done will very quickly cycle on themselves,
+  it seems the fetch loop doesnt end when the use clicks another thing
+
+  - Try, one single fetch and ... maybe not
+
+- if the fetch on a btn click has an empty uri endpoint (controlled by usestate), it returned the btns. thats the way the api is structured. this led to confusion about why a seperate fetch was runningon click... it wasn't it just seemed to be
+
+#### still have the issue of the cycling of fetch funcs, even after another btn is clicked
+
+- cancelling the func on click might be the solution...
+- using the setinterval with a cancel return works, settimeout didn't
+- helped: https://rapidapi.com/guides/api-requests-intervals
+
+#### clicking on a btn and setting state,
+
+- issue, click btn and triggering fetch, the usestate that handled the url was set to the btn picked PREVIOUSLY than the one the user had just pressed.
+- solution, chaining setstates eg:setname(e.taget.innerHTML), seturl(name) because seturl(e.taget.innerHTML)... it was more complex,
+
+### improving ux on retriving stats after btn press
+
+- problem: when clicking a btn the user currently has to wait the interval time until the data is set,
+- tried: trying to call and func when the useEffect is started and then also within the setinterval-
+  this will mean i can fetch the data on click without waiting for the setinterval time
+  if it works i'll see hi on click and then after every interval too
+- Sucess: UX sped up, calling the fetch as a func from with the useffect() setinterval
+
+### tweaking the graph
+
+- ux, the api can be called indefinitly, this makes the graph almost impossible to read. deleting the first entire after 10 entires will help keep it readable
+- problem, when change the stats, the graph data carries over, should be a quick fix, clear the data
+
+### imrpove graph readabilty:
+
+- as time goes on, the values on the furthest left disappear
+- unable to scroll as it an svg
+- format text/ legend
+
+- with such a small graph the numbers, espeically things like btc, can easy over crowd it and make it unreadable. going for a minimalistic approach
+
+#### graph text formating:
+
+- problem: the y points have decimals and no commas
+  tried: `y: fecthedData.last.toLocaleString(),` but it didn't work
+- this will have to be a strech goal
+
+### Branches:
+
+- production: deployed on netlify
+- main: ready for REVIEW, most complete
+- staging:
+- extra:

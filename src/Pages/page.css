@@ -1,3 +1,32 @@
 body{
-    background-color:     #6aa5ac;
+    
+        background: linear-gradient(-45deg, #0a0a0a, #101321, #1d1a1a, #33322f);
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
+        height: 100vh;
+        
+        color:rgb(255, 191, 0)
+    }
+    @keyframes gradient {
+        0% {
+            background-position: 0% 50%;
+        }
+     
+        50% {
+            background-position: 100% 50%;
+        }
+     
+        100% {
+            background-position: 0% 50%;
+        }
+
+    }
+
+
+#MainContainer-MainPage{
+    display: flex;
+    align-self: center;
+    justify-self: center;
+    align-items: center;
+    justify-content: center;
 }
