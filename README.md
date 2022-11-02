@@ -283,3 +283,14 @@ Error: <g> attribute transform: Expected ')', "…855130267768e-14translate(, ),
 - main: ready for REVIEW, most complete
 - staging:
 - extra:
+
+## useful links:
+
+- api:
+- - https://wanago.io/2022/04/11/abort-controller-race-conditions-react/
+- - https://medium.com/@icjoseph/using-react-to-understand-abort-controllers-eb10654485df
+
+### a scrolling graph, an idea to try:
+
+- each time you add to the data, add to the width
+- wrap it in a div with overlap:scroll and a fixed width

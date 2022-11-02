@@ -28,12 +28,11 @@ export default function ButtonsAndStats() {
       data: [
         {
           x: 0,
-          y: 58,
+          y: 0,
         },
       ],
     },
   ]);
-  // const [graphSecondsAxis, setGraphSecondsAxis] = useState(0);
 
   ///////////////////////////////////
   //       reseting graph         //
@@ -43,12 +42,7 @@ export default function ButtonsAndStats() {
       {
         id: "-",
         color: "hsl(135, 70%, 50%)",
-        data: [
-          // {
-          //   x: 0,
-          //   y: 0,
-          // },
-        ],
+        data: [],
       },
     ]);
   }
@@ -64,31 +58,20 @@ export default function ButtonsAndStats() {
       newGraphData[0].data.shift();
     }
 
-    //if there is more than one element in the graph data array
-    // if (newGraphData[0].data[newGraphData[0].data.length == ] != undefined) {
-    //   console.log(newGraphData[0].data[newGraphData[0].data.length - 1].x);
-    //   const newX = newGraphData[0].data.length * 10;
-    // }
-    let newX;
-
+    let newX; //x axis value()
+    //if making a new graph, set x axis to 0 seconds
     if (newGraphData[0].data.length === 0) {
       newX = 0;
     } else {
+      //if not a new graph, take the last x axis value and add 10seconds to make new one
       newX = newGraphData[0].data[newGraphData[0].data.length - 1].x + 10;
-      // console.log(newGraphData[0].data[newGraphData[0].data.length - 1].x);
     }
-
-    //continue adding new data to graph
-
-    // newX = newGraphData[0].data[newGraphData[0].data.length - 1].x + 10;
 
     //add new data
     newGraphData[0].data.push({
       x: newX,
       y: fecthedData.last.toLocaleString(),
     });
-
-    console.log("newGraphData", newGraphData);
   }
 
   //////////////////////////
@@ -96,9 +79,7 @@ export default function ButtonsAndStats() {
   //////////////////////////
   useEffect(() => {
     const abortController = new AbortController();
-    // https://wanago.io/2022/04/11/abort-controller-race-conditions-react/
-    // https://medium.com/@icjoseph/using-react-to-understand-abort-controllers-eb10654485df // <this will help
-
+    //try & catch + repeat on fail
     fetch(`https://www.bitstamp.net/api/v2/trading-pairs-info/`)
       .then((res) => res.json())
       .then((data) => {
