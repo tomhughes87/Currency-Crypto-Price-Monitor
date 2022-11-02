@@ -306,3 +306,12 @@ Error: <g> attribute transform: Expected ')', "…855130267768e-14translate(, ),
 - `/buttonsandstats` Page with isolated buttons/ stats/ graph component on it
 - `/avgticval` Page with isolated average ticker value component on it
 - `pages not found error` handled with a 404 page
+
+### problem with websocket not fetching data
+
+- websocket stopped fetching data
+- tried: compared the broken branch to a functioning branch (staging > production)
+- tried:git checkout timestamp to walk through issues and at which point it broke
+- Fix: a different browser- maybe stored files are at the limit, need to investigate further
+
+### altering coinbase logo colour to fit in

@@ -119,9 +119,9 @@ export default function AverageTickerValues() {
           <div id="bg">
             <div id="live-dot" className="live-active-dot"></div>
           </div>
-          <p>Live</p>
+          <p id="text-live">Live</p>
         </div>
-        <h1>Price of Bitcoin in USD:</h1>
+        <h1>Avage Price of Bitcoin/USD</h1>
         <div id="Container-site-price">
           <div className="card-site-price">
             <img id="logoBitstamp" className="logo" src={logoBitstamp} />
@@ -142,7 +142,7 @@ export default function AverageTickerValues() {
             </p>
           </div>
         </div>
-        <div>
+        <div id="Container-average-price">
           <h3>Average Price:</h3>
           <p>${pricesAveraged.toLocaleString()}</p>
         </div>

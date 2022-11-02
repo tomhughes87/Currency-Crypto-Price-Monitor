@@ -180,7 +180,7 @@ export default function ButtonsAndStats() {
         {/* //      Stats section        // */}
 
         <div id="Container-stats">
-          <h1> {TitleFromClickedBtn}</h1>
+          <h2> {TitleFromClickedBtn}</h2>
 
           <p>
             Last price:
