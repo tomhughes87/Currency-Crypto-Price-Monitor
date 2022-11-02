@@ -7,9 +7,7 @@ import search from "./utils/searchBtn";
 
 export default function ButtonsAndStats() {
   const [btnDataArr, setBtnArrData] = useState([{ name: "", url_symbol: "" }]);
-  const [loadBtns, setLoadBtns] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [clickedBtnValue, setClickedBtnValue] = useState("");
+  const [TitleFromClickedBtn, setTitleFromClickedBtn] = useState("");
   const [apiStats, setApiStats] = useState({
     last: "-",
     open: "-",
@@ -23,18 +21,13 @@ export default function ButtonsAndStats() {
     frontSymbol: "",
     endSymbol: "",
   });
-
-  ///////////////////////////////////
-  //      starting graphData      //
-  //////////////////////////////////
-
   const [graphData, setGraphData] = useState([
     {
-      id: "China",
+      id: "-",
       color: "hsl(135, 70%, 50%)",
       data: [
         {
-          x: 1,
+          x: "0 seconds",
           y: 58,
         },
       ],
@@ -42,18 +35,36 @@ export default function ButtonsAndStats() {
   ]);
 
   ///////////////////////////////////
+  //       reseting graph         //
+  //////////////////////////////////
+  function resetGraphData() {
+    setGraphData([
+      {
+        id: "-",
+        color: "hsl(135, 70%, 50%)",
+        data: [
+          // {
+          //   x: 0,
+          //   y: 0,
+          // },
+        ],
+      },
+    ]);
+  }
+
+  ///////////////////////////////////
   //      add to   graphData      //
   //////////////////////////////////
   function addToGraphcData(fecthedData: any) {
     let newGraphData = graphData;
-    newGraphData[0].data.push({ x: 2, y: fecthedData.last });
+    const newX = `${newGraphData[0].data.length * 10}secs`;
+    newGraphData[0].data.push({ x: newX, y: fecthedData.last });
     console.log("newGraphData", newGraphData);
   }
 
   //////////////////////////
   //      fetch btns      //
   //////////////////////////
-
   useEffect(() => {
     const abortController = new AbortController();
     // https://wanago.io/2022/04/11/abort-controller-race-conditions-react/
@@ -63,8 +74,6 @@ export default function ButtonsAndStats() {
       .then((res) => res.json())
       .then((data) => {
         setBtnArrData(data);
-        setLoadBtns(true);
-        // return data;
         return () => abortController.abort();
       });
   }, []);
@@ -72,12 +81,11 @@ export default function ButtonsAndStats() {
   //////////////////////////
   //   Handle btn click   //
   //////////////////////////
-
   function handleBtnClick(e: any): void {
     e.preventDefault();
+    resetGraphData();
     setUrlFromBtn(e.target.innerHTML.toLowerCase().replace("/", "")); //updated
-    setClickedBtnValue(e.target.innerHTML); //add title to stats container
-    setLoading(!loading);
+    setTitleFromClickedBtn(e.target.innerHTML); //add title to stats container
     setMiniBtnContainer("min-btn-container"); //shrink the btns container
     return;
   }
@@ -85,7 +93,6 @@ export default function ButtonsAndStats() {
   //////////////////////////
   //  Timer>Fetch Stats   //
   //////////////////////////
-
   useEffect(() => {
     fetchStats();
     let interval = setInterval(async () => {
@@ -106,7 +113,7 @@ export default function ButtonsAndStats() {
 
       // Do things with data
       setApiStats(dataStats);
-      SetcurrencySymbols(GetCurrenySymbol(clickedBtnValue));
+      SetcurrencySymbols(GetCurrenySymbol(TitleFromClickedBtn));
       /////////////////////////////////////////////////////////////////////////////////  DATA FOR GRAPH
       console.log(graphData); /////////////////////////////////////////////////////////   practicing
       addToGraphcData(dataStats); /////////////////////////////////////////////////////
@@ -121,7 +128,6 @@ export default function ButtonsAndStats() {
       console.log(error);
       console.log("caught an error!");
     }
-
     return;
   }
 
@@ -164,11 +170,7 @@ export default function ButtonsAndStats() {
         {/* //      Stats section        // */}
 
         <div id="Container-stats">
-          <h1>stats</h1>
-          <p>
-            from btn prop:
-            {clickedBtnValue}
-          </p>
+          <h1> {TitleFromClickedBtn}</h1>
 
           <p>
             Last price:
@@ -205,7 +207,7 @@ export default function ButtonsAndStats() {
         </div>
 
         <div id="Container-graph">
-          <Graph />
+          <Graph passedData={graphData} />
         </div>
       </div>
     </>

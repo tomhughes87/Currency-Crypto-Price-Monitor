@@ -257,3 +257,8 @@ Error: <g> attribute transform: Expected ')', "…855130267768e-14translate(, ),
   this will mean i can fetch the data on click without waiting for the setinterval time
   if it works i'll see hi on click and then after every interval too
 - Sucess: UX sped up, calling the fetch as a func from with the useffect() setinterval
+
+### tweaking the graph
+
+- ux, the api can be called indefinitly, this makes the graph almost impossible to read. deleting the first entire after 10 entires will help keep it readable
+- problem, when change the stats, the graph data carries over, should be a quick fix, clear the data
