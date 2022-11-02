@@ -271,6 +271,12 @@ Error: <g> attribute transform: Expected ')', "…855130267768e-14translate(, ),
 
 - with such a small graph the numbers, espeically things like btc, can easy over crowd it and make it unreadable. going for a minimalistic approach
 
+#### graph text formating:
+
+- problem: the y points have decimals and no commas
+  tried: `y: fecthedData.last.toLocaleString(),` but it didn't work
+- this will have to be a strech goal
+
 ### Branches:
 
 - production: deployed on netlify
