@@ -262,3 +262,9 @@ Error: <g> attribute transform: Expected ')', "…855130267768e-14translate(, ),
 
 - ux, the api can be called indefinitly, this makes the graph almost impossible to read. deleting the first entire after 10 entires will help keep it readable
 - problem, when change the stats, the graph data carries over, should be a quick fix, clear the data
+
+### imrpove graph readabilty:
+
+- as time goes on, the values on the furthest left disappear
+- unable to scroll as it an svg
+- format text/ legend
