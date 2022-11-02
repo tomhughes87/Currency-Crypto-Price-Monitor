@@ -1,8 +1,10 @@
 #MainContainer-avgTickerVal {
   background-color: #05595B;
-/* width: 40%; */
+width: 40%;
   border-radius: 15px;
   padding: 10px;
+  min-width: 340px;
+  max-width: 600px;
 }
 
 h1{
@@ -175,4 +177,22 @@ h1{
 .logo{
   position: absolute;
   margin-top: -34px;
+}
+
+
+@media only screen and (max-width: 1485px) {
+ 
+  #Container-site-price{
+    display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;  
+  }
+
+
+  .card-site-price{
+    margin: 5px;
+  }
+
+
 }

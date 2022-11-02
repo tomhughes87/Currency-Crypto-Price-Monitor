@@ -6,7 +6,6 @@ import "./page.css";
 export default function PageMain() {
   return (
     <>
-      <h1>PageMain</h1>
       <div id="MainContainer-MainPage">
         <AverageTickerValues />
         <ButtonsAndStats />
