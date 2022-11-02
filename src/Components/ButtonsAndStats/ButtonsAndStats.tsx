@@ -27,12 +27,13 @@ export default function ButtonsAndStats() {
       color: "hsl(135, 70%, 50%)",
       data: [
         {
-          x: "0 seconds",
+          x: 0,
           y: 58,
         },
       ],
     },
   ]);
+  // const [graphSecondsAxis, setGraphSecondsAxis] = useState(0);
 
   ///////////////////////////////////
   //       reseting graph         //
@@ -57,8 +58,33 @@ export default function ButtonsAndStats() {
   //////////////////////////////////
   function addToGraphcData(fecthedData: any) {
     let newGraphData = graphData;
-    const newX = `${newGraphData[0].data.length * 10}secs`;
+
+    //If graph length is too long remove first entry :
+    if (newGraphData[0].data.length > 6) {
+      newGraphData[0].data.shift();
+    }
+
+    //if there is more than one element in the graph data array
+    // if (newGraphData[0].data[newGraphData[0].data.length == ] != undefined) {
+    //   console.log(newGraphData[0].data[newGraphData[0].data.length - 1].x);
+    //   const newX = newGraphData[0].data.length * 10;
+    // }
+    let newX;
+
+    if (newGraphData[0].data.length === 0) {
+      newX = 0;
+    } else {
+      newX = newGraphData[0].data[newGraphData[0].data.length - 1].x + 10;
+      // console.log(newGraphData[0].data[newGraphData[0].data.length - 1].x);
+    }
+
+    //continue adding new data to graph
+
+    // newX = newGraphData[0].data[newGraphData[0].data.length - 1].x + 10;
+
+    //add new data
     newGraphData[0].data.push({ x: newX, y: fecthedData.last });
+
     console.log("newGraphData", newGraphData);
   }
 
