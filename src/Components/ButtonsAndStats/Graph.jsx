@@ -11,7 +11,7 @@ export default function Graph({passedData}) {
 const MyResponsiveLine = ({ passedData }) => (
     <ResponsiveLine
         data={passedData}
-        margin={{ top: 0, right: 10, bottom: 50, left: 10 }}
+        margin={{ top: 10, right: 10, bottom: 50, left: 10 }}
         xScale={{ type: 'point' }}
         yScale={{
             type: 'linear',

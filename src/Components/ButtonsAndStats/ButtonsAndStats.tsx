@@ -83,7 +83,10 @@ export default function ButtonsAndStats() {
     // newX = newGraphData[0].data[newGraphData[0].data.length - 1].x + 10;
 
     //add new data
-    newGraphData[0].data.push({ x: newX, y: fecthedData.last });
+    newGraphData[0].data.push({
+      x: newX,
+      y: fecthedData.last.toLocaleString(),
+    });
 
     console.log("newGraphData", newGraphData);
   }
