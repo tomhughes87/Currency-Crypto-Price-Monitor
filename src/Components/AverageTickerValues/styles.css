@@ -1,14 +1,18 @@
 #MainContainer-avgTickerVal {
-  background-color: #05595B;
+  background-color: #1940415c;
 width: 40%;
   border-radius: 15px;
   padding: 10px;
   min-width: 340px;
   max-width: 600px;
+  border-style: groove;
+  border-color: #f2d374;
 }
 
-h1{
-  color: #f0eddb;
+#MainContainer-avgTickerVal h1{
+  color: #f2d374;
+  text-align: center;
+  font-family: monospace;
 }
 
 #logoBitstamp{
@@ -24,6 +28,8 @@ h1{
   height: 18px;
 }
 
+
+
 #Container-live {
   height: 40px;
   width: 100px;
@@ -38,13 +44,14 @@ h1{
   
 }
 
-#Container-live p {
+#text-live {
   text-align: center;
   font-family: monospace;
   font-size: xx-large;
   margin-right: 10px;
   font-weight: 600;
   margin-left: 4px;
+  color: #fff;
  
    
 
@@ -124,7 +131,8 @@ h1{
 }
 
 .card-site-price{
-  background-color: whitesmoke;
+  /* background: linear-gradient(-45deg,  #504949, #cecdcb); */
+  background: linear-gradient(-45deg, #130e03, #f6d99f);
   border-radius: 15px;
   width: 190px;
   height: 150px;
@@ -138,8 +146,8 @@ h1{
 
 /* .card-site-price p{ */
   .price-site-price{
-  color: rgb(255, 255, 255);
-  background-color: rgb(61, 54, 54);
+  color: #f2d374;
+  background-color: rgb(23, 22, 22);
   height: 65px;
   font-family: sans-serif;
   font-weight: 600;
@@ -153,10 +161,16 @@ h1{
   width: 200px;
   text-align: center;
   line-height: 65px;
-  /* animation-iteration-count: infinite; */
-
-  
 }
+
+#Container-average-price h3,p{
+  color: #f2d374;
+text-align: center;
+font-size: x-large;
+font-family: monospace;
+}
+
+
 
 .animate{
   animation-duration: 2.3s;
@@ -176,6 +190,8 @@ h1{
 
 .logo{
   position: absolute;
+
+    filter: drop-shadow(3px 0px 12px #f3e2af);
   margin-top: -34px;
 }
 
@@ -192,7 +208,12 @@ align-items: center;
 
   .card-site-price{
     margin: 5px;
+    border-style: groove;
+  border-color: #f2d374;
+  
+  
   }
 
+  
 
 }

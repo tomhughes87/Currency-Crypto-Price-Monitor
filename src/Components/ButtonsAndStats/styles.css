@@ -1,16 +1,24 @@
 
 #MainContainer-btns-stats-graph{
-    background-color: white;
+  background-color: #1940415c;
+
     padding: 15px;
 
     width: 340px;
     height: 85vh;
 
     overflow: hidden;
+
+    border-style: groove;
+    border-color: #f2d374;
+    margin: 5px;
+
+    border-radius: 15px;
+
 }
 
 #Container-btns{
-    background-color: gray;
+    background-color: rgb(45, 44, 44);
     padding: 15px;
 
     height: 90%;
@@ -20,15 +28,37 @@
 
     transition: 1s;
   animation: ease-out;
+  
+  border-style: groove;
+  border-color: #f2d374;
+  margin: 5px;
+
+  border-radius: 15px;
+
 }
 
 #Container-stats{
- background-color: rgb(143, 143, 210);
- padding: 15px;
+ background-color: rgba(143, 143, 210,0);
+ padding: 10px;
+ height: 264px;
+  
+ border-style: groove;
+ border-color: #f2d374;
+ margin: 5px;
+
+ border-radius: 15px;
 }
 
+h2{
+  text-align: center;
+}
 #Container-graph{
-    background-color: greenyellow;
+    
+    border-style: groove;
+    border-color: #f2d374;
+    margin: 5px;
+background-color: rgba(237, 219, 170, 0.798);
+    border-radius: 15px;
     padding: 15px;
 }
 
@@ -58,13 +88,13 @@
    
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: rgb(85, 92, 109); 
+    background: #927214; 
     border-radius: 10px;
   }
   
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: #0c1e44; 
+    background: #f2d374; 
   }
 
   .min-btn-container{

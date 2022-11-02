@@ -82,7 +82,7 @@ const MyResponsiveLine = ({ passedData }) => (
   return (
 
     <>
-  <div>Graph</div>
+  
   <div className="container-chart">{MyResponsiveLine({passedData})}</div>
   
   </>
