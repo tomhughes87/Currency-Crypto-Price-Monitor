@@ -5,6 +5,7 @@ import PageMain from "./Pages/PageMain";
 import PageButtonsStats from "./Pages/PageButtonsStats";
 import PageContact from "./Pages/PageContact";
 import Page404 from "./Pages/Page404";
+import "./index.css";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
