@@ -299,3 +299,10 @@ Error: <g> attribute transform: Expected ')', "…855130267768e-14translate(, ),
 
 - https://commons.wikimedia.org/wiki/File:Bitcoin_logo.svg#/media/File:Bitcoin.svg
 - editing the colors to match web style
+
+# Endpoint
+
+- `/` Main page
+- `/buttonsandstats` Page with isolated buttons/ stats/ graph component on it
+- `/avgticval` Page with isolated average ticker value component on it
+- `pages not found error` handled with a 404 page

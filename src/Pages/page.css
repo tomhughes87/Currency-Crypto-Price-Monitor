@@ -32,6 +32,18 @@ body{
     justify-content: center;
 }
 
+#Container-page404{
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    align-items: center;
+}
+
+.NavLink-Text{
+    text-decoration: none;
+    font-size: x-large;
+    color: aliceblue;
+}
 
 @media only screen and (max-width: 780px) {
 
