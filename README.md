@@ -1,8 +1,10 @@
-# Not a generic react readme, please scroll down
+# Crypto Monitor Frontend Proect
 
-# Getting Started with Create React App
+Content:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+1. [ Description. ](#desc)
+2. [ Usage tips. ](#usage)
+3. [Markdown - Link](###here)
 
 ## Available Scripts
 
@@ -16,7 +18,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### `npm test`
+### here `npm test`
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
@@ -317,3 +319,15 @@ Error: <g> attribute transform: Expected ')', "…855130267768e-14translate(, ),
 - Fix: a different browser- maybe stored files are at the limit, need to investigate further
 
 ### altering coinbase logo colour to fit in
+
+<a name="desc"></a>
+
+## 1. Description
+
+sometext
+
+<a name="usage"></a>
+
+## 2. Usage tips
+
+sometext
