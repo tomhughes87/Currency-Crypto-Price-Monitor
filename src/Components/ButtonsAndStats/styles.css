@@ -5,7 +5,7 @@
     padding: 15px;
 
     width: 340px;
-    height: 85vh;
+    height: 750px;
 
     overflow: hidden;
 
@@ -57,7 +57,7 @@ h2{
     border-style: groove;
     border-color: #f2d374;
     margin: 5px;
-background-color: rgba(237, 219, 170, 0.798);
+background-color: rgba(229, 202, 129, 0.798);
     border-radius: 15px;
     padding: 15px;
 }
@@ -67,8 +67,21 @@ background-color: rgba(237, 219, 170, 0.798);
 
 .btn{
     margin: 3px;
-    width: 90px;
+    width: 87px;
     height: 40px;
+
+    /* background-color: #74f278; */
+    /* background-color: #927214; */
+    background: linear-gradient(-45deg, #8c7d5e, #cbb485);
+    /* background-color: linear-gradient(-45deg, #130e03, #f6d99f); */
+    border-radius: 5px;
+    /* border: #f2d374; */
+    /* border-color: #f2d374; */
+    color: black;
+    /* color: #f2d374; */
+
+    font-size: 14px;
+    font-weight: 700;
 }
 
 /* ///////////////// */
